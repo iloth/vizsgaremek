@@ -1,0 +1,22 @@
+{
+  "port": 8080,
+  "database": {
+    "connection": "mongodb+srv://dbUser:UZPeyKbFR2rcjuUR@vizsgaremekdatabase.vef4v.mongodb.net/?retryWrites=true&w=majority"
+  },
+  "log": {
+    "winston": {
+      "file": {
+        "level": "info",
+        "filename": "logs/app.log",
+        "format": "json"
+      },
+      "console": {
+        "level": "info",
+        "format": "simple"
+      }
+    },
+    "morgan": {
+      "format": "tiny"
+    }
+  }
+}

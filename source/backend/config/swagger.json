@@ -1,0 +1,122 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.1.0",
+    "title": "Vizsgaremek - Customburger",
+    "description": "Customburger streetfood étterem honlapja",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Admin",
+      "description": "API for admin pages"
+    },
+    {
+      "name": "Admin/Users",
+      "description": "API for administering users"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/admin/users": {
+      "get": {
+        "tags": [
+          "Admin/Users"
+        ],
+        "summary": "Get list of all users",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admin/Users"
+        ],
+        "summary": "Create new user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "User to add",
+            "schema": {
+              "required": [
+                "name",
+                "email",
+                "password"
+              ],
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "zip": {
+              "type": "string" 
+            },
+            "city": {
+              "type": "string" 
+            },
+            "address": {
+              "type": "string" 
+            }
+          }
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
