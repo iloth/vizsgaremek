@@ -1,7 +1,7 @@
 {
   "port": 8080,
   "database": {
-    "connection": "mongodb+srv://dbUser:UZPeyKbFR2rcjuUR@vizsgaremekdatabase.vef4v.mongodb.net/?retryWrites=true&w=majority"
+    "connection": "mongodb+srv://dbUser:UZPeyKbFR2rcjuUR@vizsgaremekdatabase.vef4v.mongodb.net/db?retryWrites=true&w=majority"
   },
   "log": {
     "winston": {
