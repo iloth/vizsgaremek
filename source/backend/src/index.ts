@@ -7,6 +7,7 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import LoggerStream from "./utils/LoggerStream";
 import adminRouter from './routes/admin/adminRoute';
+const cors = require('cors');
 
 const app = express();
 
@@ -24,6 +25,8 @@ mongoose
 
 //logging
 app.use(morgan(config.get('log.morgan.format'), { stream: new LoggerStream }));
+
+app.use(cors());
 
 //routing
 app.use(express.json());

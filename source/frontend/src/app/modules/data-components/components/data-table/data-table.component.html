@@ -1,0 +1,16 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th *ngFor="let col of columns">{{ col.title }}</th>
+      <th *ngIf="editButton"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of items$ | async">
+      <td *ngFor="let col of columns">{{ item[col.key] }}</td>
+      <td *ngIf="editButton">
+        <button class="btn btn-sm btn-outline-primary" (click)="onEditButtonClick(item)" title="Edit"><i class="fa fa-pencil"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>

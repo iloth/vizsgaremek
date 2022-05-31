@@ -1,0 +1,7 @@
+<nav aria-label="Pagination">
+  <ul class="pagination pagination-sm">
+    <li class="page-item"><button class="page-link" [disabled]="currPage === 1" (click)="changePage(currPage - 1)">Prev</button></li>
+    <li class="page-item" *ngFor="let page of displayPages()"><button class="page-link" (click)="changePage(page)">{{ page }}</button></li>
+    <li class="page-item"><button class="page-link" [disabled]="currPage === pagesCount" (click)="changePage(currPage + 1)">Next</button></li>
+  </ul>
+</nav>
