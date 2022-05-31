@@ -27,15 +27,16 @@ export class PagerComponent implements OnInit {
   pageChanged: EventEmitter<number> = new EventEmitter<number>();
 
   ngOnInit(): void {
-    this.pagesCount = Math.ceil(this.itemsCount / this.pageSize);
   }
 
   displayPages(): number[] {
-    let minPage: number = Math.max(1, this.currPage - Math.floor(this.pagesCount / 2));
+    this.pagesCount = Math.ceil(this.itemsCount / this.pageSize);
+    let minPage: number = Math.max(1, this.currPage - Math.floor(this.displayPagesCount / 2));
     let maxPage: number = Math.min(this.pagesCount, minPage + this.displayPagesCount - 1);
     if (maxPage === this.pagesCount) {
       minPage = Math.max(maxPage - this.displayPagesCount + 1, 1);
     }
+
     const range: number[] = [];
     for(let page = minPage; page <= maxPage; page++) {
       range.push(page);

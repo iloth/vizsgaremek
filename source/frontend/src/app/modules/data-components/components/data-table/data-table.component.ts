@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { IDataColumn } from '../../models/DataTableModels';
 
 @Component({
@@ -7,25 +8,42 @@ import { IDataColumn } from '../../models/DataTableModels';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss']
 })
-export class DataTableComponent<Model extends {[key: string] : any}> implements OnInit {
+export class DataTableComponent<Entity extends {[key: string] : any}> implements OnInit {
   constructor() { }
 
   @Input()
   columns: IDataColumn[] = [];
 
   @Input()
-  items$: Observable<Model[]> = new Observable();
+  items: Entity[] | null = null;
 
   @Input()
   editButton: boolean = false;
   
+  @Input()
+  pager: boolean = true;
+  currPage: number = 1;
+  pageSize: number = environment.dataComponents.pager.defaultPageSize;
+
   @Output()
-  editButtonClicked: EventEmitter<Model> = new EventEmitter<Model>();
+  editButtonClicked: EventEmitter<Entity> = new EventEmitter<Entity>();
 
   ngOnInit(): void {
   }
 
-  onEditButtonClick(item: Model) {
+  onEditButtonClick(item: Entity): void {
     this.editButtonClicked.emit(item);
+  }
+
+  currPageItems(): Entity[] | null {
+    if (this.pager && this.items) {
+      return this.items?.slice((this.currPage - 1) * this.pageSize, (this.currPage - 1) * this.pageSize + this.pageSize - 1)
+    } else {
+      return this.items;
+    }
+  }
+
+  onChangePage(toPpage: number): void {
+    this.currPage = toPpage;
   }
 }

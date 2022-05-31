@@ -6,11 +6,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of items$ | async">
-      <td *ngFor="let col of columns">{{ item[col.key] }}</td>
+    <tr *ngFor="let item of currPageItems()">
+      <td *ngFor="let col of columns">{{ col.format ? col.format(item[col.key]) : item[col.key] }}</td>
       <td *ngIf="editButton">
         <button class="btn btn-sm btn-outline-primary" (click)="onEditButtonClick(item)" title="Edit"><i class="fa fa-pencil"></i></button>
       </td>
     </tr>
   </tbody>
 </table>
+<dc-pager *ngIf="pager" [pageSize]="pageSize" [currPage]="currPage" [itemsCount]="(items) ? items.length : 0" (pageChanged)="onChangePage($event)">
+</dc-pager>

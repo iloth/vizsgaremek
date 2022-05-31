@@ -1,4 +1,5 @@
 export interface IDataColumn {
   key: string,
-  title: string
+  title: string,
+  format?: Function | null,
 }

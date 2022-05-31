@@ -1,4 +1,4 @@
 <h1>Users</h1>
 
-<dc-data-table [items$]="users$" [columns]="columns" [editButton]="true" (editButtonClicked)="onEdit($event)">
+<dc-data-table [items]="users$ | async" [columns]="columns" [editButton]="true" (editButtonClicked)="onEdit($event)">
 </dc-data-table>
