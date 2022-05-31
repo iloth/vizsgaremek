@@ -20,11 +20,11 @@ export class UsersComponent implements OnInit {
   users$: Observable<UserModel[]> = this.userService.getAll();
 
   columns: IDataColumn[] = [
-    { key: "name", title: "Name" },
-    { key: "email", title: "Email", display: Displays.Email },
-    { key: "address", title: "Address", format: (address: IAddress) => `${address.zip} ${address.city}, ${address.address}` },    
-    { key: "roles", title: "Roles", format: (roles: string[]) => roles.join(' | ') },
-    { key: "active", title: "Is active", display: Displays.Checkbox },
+    { key: "name", title: "Name", sortable: true },
+    { key: "email", title: "Email", sortable: true, display: Displays.Email },
+    { key: "address", title: "Address", sortable: true, format: (address: IAddress) => `${address.zip} ${address.city}, ${address.address}` },    
+    { key: "roles", title: "Roles", sortable: false, format: (roles: string[]) => roles.join(' | ') },
+    { key: "active", title: "Is active", sortable: true, display: Displays.Checkbox },
   ];
 
   ngOnInit(): void {

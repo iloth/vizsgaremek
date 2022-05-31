@@ -1,7 +1,12 @@
 <table class="table">
   <thead>
     <tr>
-      <th *ngFor="let col of columns">{{ col.title }}</th>
+      <th *ngFor="let col of columns">
+        <span *ngIf="sortable && col.sortable" (click)="onSortClick(col.key)">
+          {{ col.title }} <i *ngIf="sortKey === col.key" class="fa" [class.fa-sort-up]="sortDirection === 1" [class.fa-sort-down]="sortDirection === -1"></i>
+        </span>
+        <span *ngIf="!sortable || !col.sortable">{{ col.title }}</span>
+      </th>
       <th *ngIf="editButton"></th>
     </tr>
   </thead>
