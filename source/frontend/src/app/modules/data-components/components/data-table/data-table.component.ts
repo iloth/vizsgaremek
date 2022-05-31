@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IDataColumn } from '../../models/DataTableModels';
+import { IDataColumn, Displays } from '../../models/DataTableModels';
 
 @Component({
   selector: 'dc-data-table',
@@ -29,6 +29,11 @@ export class DataTableComponent<Entity extends {[key: string] : any}> implements
   editButtonClicked: EventEmitter<Entity> = new EventEmitter<Entity>();
 
   ngOnInit(): void {
+  }
+
+  //hack to use enum in template
+  public get Displays() {
+    return Displays; 
   }
 
   onEditButtonClick(item: Entity): void {

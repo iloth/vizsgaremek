@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserModel } from 'src/app/models/admin/UserModel';
 import { IAddress } from 'src/app/models/interfaces/AddressModel';
-import { IDataColumn } from 'src/app/modules/data-components/models/DataTableModels';
+import { Displays, IDataColumn } from 'src/app/modules/data-components/models/DataTableModels';
 import { UserService } from 'src/app/services/admin/UserService';
 
 @Component({
@@ -21,10 +21,10 @@ export class UsersComponent implements OnInit {
 
   columns: IDataColumn[] = [
     { key: "name", title: "Name" },
-    { key: "email", title: "Email" },
+    { key: "email", title: "Email", display: Displays.Email },
     { key: "address", title: "Address", format: (address: IAddress) => `${address.zip} ${address.city}, ${address.address}` },    
     { key: "roles", title: "Roles", format: (roles: string[]) => roles.join(' | ') },
-    { key: "active", title: "Is active" },
+    { key: "active", title: "Is active", display: Displays.Checkbox },
   ];
 
   ngOnInit(): void {
