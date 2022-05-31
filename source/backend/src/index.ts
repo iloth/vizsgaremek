@@ -28,7 +28,7 @@ app.use(morgan(config.get('log.morgan.format'), { stream: new LoggerStream }));
 //routing
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(require('../config/swagger.json')));
-app.use('/admin', adminRouter);
+app.use('/api/admin', adminRouter);
 
 //error handling
 app.use((err: HttpException, req: Request, res: Response, next: NextFunction) => {
