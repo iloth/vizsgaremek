@@ -3,5 +3,4 @@ export abstract class BaseModel {
     public _id: string | null = null
   ) {}
   [key: string]: any;
-
 }

@@ -15,7 +15,7 @@ const userSchema = new Schema<IUser>({
   email: String,
   password: String,
   address: {
-    postalCode: String,
+    zip: String,
     city: String,
     address: String
   },
