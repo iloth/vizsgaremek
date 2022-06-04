@@ -10,9 +10,11 @@ export async function get(id: string): Promise<IUser | null> {
 }
 
 export async function create(user: IUser): Promise<IUser> {
-  const newDoc = new userModel(user);
-  await newDoc.save();
-  return newDoc;
+  delete user._id;
+  const userDoc = new userModel(user);
+  userDoc.isNew = true;
+  await userDoc.save();
+  return userDoc;
 }
 
 export async function update(id: string, user: IUser): Promise<IUser | null> {

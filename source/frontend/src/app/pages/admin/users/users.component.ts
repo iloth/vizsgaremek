@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserModel } from 'src/app/models/admin/UserModel';
-import { IAddress } from 'src/app/models/interfaces/AddressModel';
+import { IAddress } from 'src/app/models/common/IAddress';
 import { Displays, IDataColumn } from 'src/app/modules/data-components/models/DataTableModels';
 import { UserService } from 'src/app/services/admin/UserService';
 
@@ -30,7 +30,11 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onEdit(item: UserModel) {
+  onEditClick(item: UserModel) {
     this.router.navigate(['/', 'admin', 'user', item._id]);
+  }
+
+  onCreateClick() {
+    this.router.navigate(['/', 'admin', 'user', 'new']);
   }
 }

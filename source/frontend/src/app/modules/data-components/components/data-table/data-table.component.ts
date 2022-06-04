@@ -39,7 +39,7 @@ export class DataTableComponent<Entity extends {[key: string] : any}> implements
   filtersJSON: string = '{}';
 
   @Output()
-  editButtonClicked: EventEmitter<Entity> = new EventEmitter<Entity>();
+  editButtonClick: EventEmitter<Entity> = new EventEmitter<Entity>();
 
   //#endregion properties
 
@@ -55,7 +55,7 @@ export class DataTableComponent<Entity extends {[key: string] : any}> implements
   }
 
   onEditButtonClick(item: Entity): void {
-    this.editButtonClicked.emit(item);
+    this.editButtonClick.emit(item);
   }
 
   //#region paginating
