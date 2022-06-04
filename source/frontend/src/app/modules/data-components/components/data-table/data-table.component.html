@@ -11,7 +11,12 @@
     </tr>
     <tr *ngIf="filterable">
       <th *ngFor="let col of columns">
-        <input *ngIf="col.filterable" type="text" [value]="filters.get(col.key)" [name]="col.key" (keyup)="onFilterKeyup($event)" />        
+        <select *ngIf="col.filterable && col.display === Displays.Checkbox" class="form-select-sm border-1" [value]="filters.get(col.key)" [name]="col.key" (change)="onFilterChange($event)" >
+          <option value=""></option>
+          <option value="true">true</option>
+          <option value="false">false</option>
+        </select>
+        <input *ngIf="col.filterable && col.display !== Displays.Checkbox" class="form-control-sm border-1" type="text" [value]="filters.get(col.key)" [name]="col.key" (keyup)="onFilterKeyup($event)" />        
       </th>
       <th>
         <button class="btn btn-sm btn-outline-warning" (click)="onResetFilterButtonClick()" title="Reset"><i class="fa fa-trash"></i></button>        

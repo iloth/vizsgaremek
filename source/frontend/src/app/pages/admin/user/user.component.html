@@ -5,7 +5,7 @@
     <div class="col-md-10">
       <div class="mb-3">
         <label class="form-label" for="name">Name:</label>
-        <input class="form-control" id="name" type="text" formControlName="name">
+        <input class="form-control" id="name" type="text" formControlName="name" [class.is-invalid]="control('name').invalid && (control('name').dirty || control('name').touched)" >
         <div *ngIf="control('name').invalid && (control('name').dirty || control('name').touched)" class="alert alert-danger">
           <div *ngIf="control('name').errors?.['required']">Name is required.</div>
           <div *ngIf="control('name').errors?.['minlength']">Name must be at least 5 characters long.</div>
@@ -14,7 +14,7 @@
 
       <div class="mb-3">
         <label class="form-label" for="email">Email:</label>
-        <input class="form-control" id="email" type="text" formControlName="email">
+        <input class="form-control" id="email" type="text" formControlName="email" [class.is-invalid]="control('email').invalid && (control('email').dirty || control('email').touched)">
         <div *ngIf="control('email').invalid && (control('email').dirty || control('email').touched)" class="alert alert-danger">
           <div *ngIf="control('email').errors?.['required']">Email is required.</div>
         </div>
@@ -24,7 +24,7 @@
         <label class="form-label">Address:</label>
         <div class="mb-3 ms-5">
           <label class="form-label" for="zip">Zip Code:</label>
-          <input class="form-control" id="zip" type="text" formControlName="zip">
+          <input class="form-control" id="zip" type="text" formControlName="zip" [class.is-invalid]="control('address.zip').invalid && (control('address.zip').dirty || control('address.zip').touched)">
           <div *ngIf="control('address.zip').invalid && (control('address.zip').dirty || control('address.zip').touched)" class="alert alert-danger">
             <div *ngIf="control('address.zip').errors?.['required']">Zip is required.</div>
             <div *ngIf="control('address.zip').errors?.['minlength']">Zip must be at least 3 characters long.</div>
@@ -32,14 +32,14 @@
         </div>
         <div class="mb-3 ms-5">
           <label class="form-label" for="city">City:</label>
-          <input class="form-control" id="city" type="text" formControlName="city">
+          <input class="form-control" id="city" type="text" formControlName="city" [class.is-invalid]="control('address.city').invalid && (control('address.city').dirty || control('address.city').touched)">
           <div *ngIf="control('address.city').invalid && (control('address.city').dirty || control('address.city').touched)" class="alert alert-danger">
             <div *ngIf="control('address.city').errors?.['required']">City is required.</div>
           </div>
         </div>
         <div class="mb-3 ms-5">
           <label class="form-label" for="address">Address:</label>
-          <input class="form-control" id="address" type="text" formControlName="address">
+          <input class="form-control" id="address" type="text" formControlName="address" [class.is-invalid]="control('address.address').invalid && (control('address.address').dirty || control('address.address').touched)">
           <div *ngIf="control('address.address').invalid && (control('address.address').dirty || control('address.address').touched)" class="alert alert-danger">
             <div *ngIf="control('address.address').errors?.['required']">City is required.</div>
           </div>
@@ -78,10 +78,13 @@
       
     </div>
     <div class="col-md-2">
+      <div class="d-grid gap-3 mb-5">
+        <button class="btn btn-secondary" type="button" [routerLink]="['/', 'admin', 'users']"><i class="fa fa-list"></i> Back to the list</button>
+      </div>
       <div class="d-grid gap-3">
-        <button class="btn btn-primary" type="submit" [disabled]="mainForm.status != 'VALID'">{{ editMode === EditModes.Create ? "Create" : "Save" }}</button>
-        <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">Reset password</button>
-        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Delete</button>
+        <button class="btn btn-primary" type="submit" [disabled]="mainForm.status != 'VALID'"><i class="fa fa-save"></i> {{ editMode === EditModes.Create ? "Create" : "Save" }}</button>
+        <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#resetPasswordModal"><i class="fa fa-key"></i> Reset password</button>
+        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"><i class="fa fa-trash"></i> Delete</button>
       </div>
     </div>    
   </div>

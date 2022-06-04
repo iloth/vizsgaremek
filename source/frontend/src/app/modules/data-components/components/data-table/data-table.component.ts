@@ -79,10 +79,21 @@ export class DataTableComponent<Entity extends {[key: string] : any}> implements
 
   //#region filtering
 
+  onFilterChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.filters.set(input.name, input.value);
+
+    this.refreshFilter();
+  }
+
   onFilterKeyup(event: KeyboardEvent): void {
     const input = event.target as HTMLInputElement;
     this.filters.set(input.name, input.value);
 
+    this.refreshFilter();
+  }
+
+  refreshFilter() {
     let filters: string[] = [];
     this.filters.forEach((val:string | null, key: string) => {
       if(val) {
