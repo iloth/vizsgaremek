@@ -19,6 +19,10 @@
     {
       "name": "Admin/Users",
       "description": "API for administering users"
+    },
+    {
+      "name": "Admin/BurgerParts",
+      "description": "API for administering burger parts"
     }
   ],
   "schemes": [
@@ -169,6 +173,143 @@
           }
         }  
       }      
+    },
+    "/api/admin/parts": {
+      "get": {
+        "tags": [
+          "Admin/BurgerParts"
+        ],
+        "summary": "Get list of burger parts",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BurgerParts"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admin/BurgerParts"
+        ],
+        "summary": "Create new part",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "part",
+            "description": "Burger part to add",
+            "schema": {
+              "required": [
+                "name",
+                "category"
+              ],
+              "$ref": "#/definitions/BurgerPart"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BurgerPart"
+            }
+          }
+        }
+
+      }      
+    },
+    "/api/admin/parts/{id}": {
+      "get": {
+        "tags": [
+          "Admin/BurgerParts"
+        ],
+        "summary": "Get a part by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "Indentifier of the burger part"
+          }
+        ],      
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BurgerPart"
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }  
+      },
+      "put": {
+        "tags": [
+          "Admin/BurgerParts"
+        ],
+        "summary": "Set a part by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "Indentifier of the part"
+          },
+          {
+            "in": "body",
+            "name": "part",
+            "description": "Burger part to modify",
+            "schema": {
+              "required": [
+                "name",
+                "category"
+              ],
+              "$ref": "#/definitions/BurgerPart"
+            }
+          }
+        ],      
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BurgerPart"
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }  
+      },
+      "delete": {
+        "tags": [
+          "Admin/BurgerParts"
+        ],
+        "summary": "Delete a part by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "Indentifier of the burger part"
+          }
+        ],      
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }  
+      }      
     }
   },
   "definitions": {
@@ -208,6 +349,46 @@
           "items": {
             "type": "string"
           }
+        }
+      }
+    },
+    "BurgerPart": {
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "category": {
+          "type": "string"
+        },
+        "freeFrom": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "vegan": {
+          "type": "string"
+        },
+        "hot": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        },
+        "defaultPlace": {
+          "type": "number"
         }
       }
     }
