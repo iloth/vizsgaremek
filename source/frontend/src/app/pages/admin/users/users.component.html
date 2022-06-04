@@ -1,6 +1,6 @@
 <h1>Users</h1>
 
-<button class="btn btn-primary" (click)="onCreateClick()">Create new user</button>
+<button class="btn btn-primary" (click)="onCreateClick()"><i class="fa fa-plus"></i> Create new user</button>
 
 <dc-data-table [items]="users$ | async" [columns]="columns" [editButton]="true" (editButtonClick)="onEditClick($event)">
 </dc-data-table>

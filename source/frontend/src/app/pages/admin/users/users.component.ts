@@ -5,17 +5,17 @@ import { UserModel } from 'src/app/models/admin/UserModel';
 import { IAddress } from 'src/app/models/common/IAddress';
 import { Displays, IDataColumn } from 'src/app/modules/data-components/models/DataTableModels';
 import { UserService } from 'src/app/services/admin/UserService';
-
+import { BasePage } from '../../BasePage';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent extends BasePage implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router
-  ) { }
+  ) { super(); }
 
   users$: Observable<UserModel[]> = this.userService.getAll();
 

@@ -1,4 +1,3 @@
-import { BasePage } from '../../BasePage';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,13 +6,14 @@ import { UserModel } from 'src/app/models/admin/UserModel';
 import { EditModes } from 'src/app/models/common/EditModes';
 import { UserService } from 'src/app/services/admin/UserService';
 import { HttpErrorResponse } from '@angular/common/http';
+import { BaseFormPage } from '../../BaseFormPage';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent extends BasePage implements OnInit {
+export class UserComponent extends BaseFormPage implements OnInit {
   constructor(
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
