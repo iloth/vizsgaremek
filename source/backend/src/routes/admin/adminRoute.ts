@@ -1,10 +1,10 @@
 import express from 'express';
-import users from './usersRoute';
-import parts from './burgerPartsRoute';
+import userRouter from './UserRouter';
+import burgerPartRouter from './BurgerPartRouter';
 
 const router = express.Router()
 
-router.use('/users', users);
-router.use('/parts', parts);
+router.use('/users', userRouter.router);
+router.use('/parts', burgerPartRouter.router);
 
 export default router;
