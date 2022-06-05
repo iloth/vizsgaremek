@@ -67,8 +67,6 @@ export class UserComponent extends BaseFormPage implements OnInit {
           });
       }
     });
-
-    this.mainForm.status
   }
 
   onRoleChange() {

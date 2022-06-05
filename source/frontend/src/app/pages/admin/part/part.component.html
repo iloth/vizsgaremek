@@ -1,0 +1,108 @@
+<h1>Edit Burger Part</h1>
+
+<form [formGroup]="mainForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label" for="category">Category:</label>
+          <select class="form-select" formControlName="category">
+            <option *ngFor="let category of categories" [value]="category[0]">{{ category[1] }}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="name">Name:</label>
+          <input class="form-control" id="name" type="text" formControlName="name" [class.is-invalid]="control('name').invalid && (control('name').dirty || control('name').touched)" >
+          <div *ngIf="control('name').invalid && (control('name').dirty || control('name').touched)" class="alert alert-danger">
+            <div *ngIf="control('name').errors?.['required']">Name is required.</div>
+            <div *ngIf="control('name').errors?.['minlength']">Name must be at least 5 characters long.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label class="form-label" for="description">Description:</label>
+          <input class="form-control" id="description" type="text" formControlName="description">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label" for="price">Price:</label>
+          <input class="form-control" id="price" type="number" min="0" formControlName="price" [class.is-invalid]="control('price').invalid && (control('price').dirty || control('price').touched)">
+          <div *ngIf="control('price').invalid && (control('price').dirty || control('price').touched)" class="alert alert-danger">
+            <div *ngIf="control('price').errors?.['required']">Price is required.</div>
+            <div *ngIf="control('price').errors?.['min']">Price can not be.</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="category">Status:</label>
+          <select class="form-select" formControlName="status">
+            <option *ngFor="let status of statuses" [value]="status[0]">{{ status[1] }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label class="form-label" for="freeFrom">Free from:</label>
+          <div></div>
+          <div class="form-check d-inline-block ms-3">
+            <input class="form-check-input" id="freefrom_gluten" type="checkbox" 
+              [(ngModel)]="freeFrom.gluten" [ngModelOptions]="{standalone: true}" (change)="onFreeFromChange()">
+            <label class="form-check-label" for="freefrom_gluten">Gluten</label>
+          </div>
+          <div class="form-check d-inline-block ms-3">
+            <input class="form-check-input" id="freefrom_lactose" type="checkbox" 
+              [(ngModel)]="freeFrom.lactose" [ngModelOptions]="{standalone: true}" (change)="onFreeFromChange()">
+            <label class="form-check-label" for="freefrom_lactose">Lactose</label>
+          </div>
+          <div class="form-check d-inline-block ms-3">
+            <input class="form-check-input" id="freefrom_sugar" type="checkbox" 
+              [(ngModel)]="freeFrom.sugar" [ngModelOptions]="{standalone: true}" (change)="onFreeFromChange()">
+            <label class="form-check-label" for="freefrom_sugar">Sugar</label>
+          </div>
+          <div></div>          
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="vegan">Vegan:</label>
+          <select class="form-select" formControlName="vegan">
+            <option *ngFor="let veg of vegs" [value]="veg[0]">{{ veg[1] }}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="hot">Hot:</label>
+          <input class="form-control" id="hot" type="number" min="0" max="5" formControlName="hot"  [class.is-invalid]="control('hot').invalid && (control('hot').dirty || control('hot').touched)">
+          <div *ngIf="control('hot').invalid && (control('hot').dirty || control('hot').touched)" class="alert alert-danger">
+            <div *ngIf="control('hot').errors?.['required']">Hot is required.</div>
+            <div *ngIf="control('hot').errors?.['min'] || control('hot').errors?.['max']">Hot is must be a number between 0 and 5.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-2">
+      <div class="d-grid gap-3 mb-5">
+        <button class="btn btn-secondary" type="button" [routerLink]="['/', 'admin', 'parts']"><i class="fa fa-list"></i> Back to the list</button>
+      </div>
+      <div class="d-grid gap-3">
+        <button class="btn btn-primary" type="submit" [disabled]="mainForm.status != 'VALID'"><i class="fa fa-save"></i> {{ editMode === EditModes.Create ? "Create" : "Save" }}</button>
+        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"><i class="fa fa-trash"></i> Delete</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="partSavedToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <i class="fa fa-save me-2 text-primary"></i>
+      <strong class="me-auto text-primary">Info</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Burger part has been saved!
+    </div>
+  </div>
+</div>

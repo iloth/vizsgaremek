@@ -12,16 +12,20 @@ import { NotFoundComponent } from './pages/other/not-found/not-found.component';
 import { ErrorComponent } from './pages/other/error/error.component';
 import { NavigationComponent } from './controls/navigation/navigation.component';
 import { BreadcrumbsComponent } from './controls/breadcrumbs/breadcrumbs.component';
+import { PartsComponent } from './pages/admin/parts/parts.component';
+import { PartComponent } from './pages/admin/part/part.component';
 @NgModule({
   declarations: [
     AppComponent,
-    UsersComponent,
     HomeComponent,
-    UserComponent,
     NotFoundComponent,
     ErrorComponent,
     NavigationComponent,
     BreadcrumbsComponent,
+    UsersComponent,
+    UserComponent,
+    PartsComponent,
+    PartComponent,
   ],
   imports: [
     BrowserModule,

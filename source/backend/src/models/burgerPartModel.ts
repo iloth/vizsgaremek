@@ -1,16 +1,15 @@
 import mongoose, { Document, ObjectId, Schema } from "mongoose";
-import { IAddress } from "./addressModel";
 
 export interface IBurgerPart extends Document {
   name: string;
   description: string;
   image: ObjectId;
   price: number;
-  category: ObjectId;
+  category: "bun" | "meat" | "cheese" | "vegetable" | "sauce" | "extra" | "other";
   freeFrom: string[]; //gluten, lactose, sugar
   vegan: "no" | "vegetarian" | "vegan";
   hot: number;
-  status: "ok" | "tna" | "na",
+  status: "ok" | "tna" | "na";
   defaultPlace: number;
 }
 
@@ -19,7 +18,7 @@ const burgerPartSchema = new Schema<IBurgerPart>({
   description: String,
   image: mongoose.Types.ObjectId,
   price: Number,
-  category: mongoose.Types.ObjectId,
+  category: String,
   freeFrom: [String],
   vegan: String,
   hot: Number,

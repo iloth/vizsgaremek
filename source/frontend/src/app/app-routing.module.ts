@@ -5,6 +5,8 @@ import { UsersComponent } from './pages/admin/users/users.component';
 import { UserComponent } from './pages/admin/user/user.component';
 import { NotFoundComponent } from './pages/other/not-found/not-found.component';
 import { ErrorComponent } from './pages/other/error/error.component';
+import { PartsComponent } from './pages/admin/parts/parts.component';
+import { PartComponent } from './pages/admin/part/part.component';
 
 const routes: Routes = [
   {
@@ -26,6 +28,14 @@ const routes: Routes = [
   {
     path: 'admin/user/:id',
     component: UserComponent
+  },
+  {
+    path: 'admin/parts',
+    component: PartsComponent
+  },
+  {
+    path: 'admin/part/:id',
+    component: PartComponent
   },
   {
     path: '**',
