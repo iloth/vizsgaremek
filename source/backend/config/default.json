@@ -6,7 +6,7 @@
   "log": {
     "winston": {
       "file": {
-        "level": "info",
+        "level": "debug",
         "filename": "logs/app.log",
         "format": "json"
       },
@@ -16,7 +16,7 @@
       }
     },
     "morgan": {
-      "format": "tiny"
+      "format": "combined"
     }
   }
 }

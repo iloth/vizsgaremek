@@ -36,10 +36,10 @@ app.use('/api/admin', adminRouter);
 //error handling
 app.use((err: HttpException, req: Request, res: Response, next: NextFunction) => {
   if (err) {
-    logger.error(err.message);
+    logger.error(err.origError.message);
 
     res.statusCode = err.status;
-    res.end(JSON.stringify(err));
+    res.end(JSON.stringify(err.message));
   }
 });
 

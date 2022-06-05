@@ -10,7 +10,7 @@ export interface IUser extends Document {
   roles: string[];
 }
 
-const userSchema = new Schema<IUser>({
+export const userSchema = new Schema<IUser>({
   name: String,
   email: String,
   password: String,
