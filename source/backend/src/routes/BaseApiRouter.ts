@@ -1,13 +1,15 @@
 import { Document } from "mongoose";
 import { BaseService } from "../services/BaseService";
-import express, { Request, Response, NextFunction, Router } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import HttpException from "../utils/HttpException";
+import { BaseRouter } from "./BaseRouter";
 
-export abstract class BaseApiRouter<Model extends Document> {
+export abstract class BaseApiRouter<Model extends Document> extends BaseRouter {
   constructor(
     private service: BaseService<Model>
   ) {
-    
+    super();
+
     this.router.get('/', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
       try {
         const entities = await service.getAll();
@@ -59,7 +61,4 @@ export abstract class BaseApiRouter<Model extends Document> {
       }
     });
   }
-
-  router: Router = express.Router();
-
 } 
