@@ -27,6 +27,8 @@ export class PartsComponent extends BasePage implements OnInit {
     { key: "price", title: "Price", sortable: true, filterable: false},
   ];
 
+  filter: string = '{}';
+
   ngOnInit(): void {
   }
 
@@ -36,6 +38,10 @@ export class PartsComponent extends BasePage implements OnInit {
 
   onCreateClick() {
     this.router.navigate(['/', 'admin', 'part', 'new']);
+  }
+
+  onFilterChanged(filterJSON: string) {
+    this.filter = filterJSON;
   }
 
 }

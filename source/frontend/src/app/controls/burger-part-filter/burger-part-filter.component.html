@@ -1,0 +1,52 @@
+<div class="burgerPartFilter mt-3 mb-3">
+  <form [formGroup]="mainForm">
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <select class="form-select form-select-sm" formControlName="category" (change)="onFormChange()">
+          <option value="">Category</option>
+          <option *ngFor="let category of categories" [value]="category[0]">{{ category[1] }}</option>
+        </select>
+      </div>
+      <div class="col-md-5">
+        <input class="form-control form-control-sm" id="name" type="text" placeholder="Name" (keyup)="onNameChange($event)">
+      </div>
+      <div *ngIf="!availableOnly" class="col-md-3">
+        <select class="form-select form-select-sm" formControlName="status" (change)="onFormChange()">
+          <option value="">Status</option>
+          <option *ngFor="let status of statuses" [value]="status[0]">{{ status[1] }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label class="form-label" for="freeFrom">Free from:</label>
+        <div class="form-check form-check-sm d-inline-block ms-3">
+          <input class="form-check-input" id="freefrom_gluten" type="checkbox" 
+            [(ngModel)]="freeFrom.gluten" [ngModelOptions]="{standalone: true}" (change)="onFreeFromChange()">
+          <label class="form-check-label" for="freefrom_gluten">Gluten</label>
+        </div>
+        <div class="form-check form-check-sm d-inline-block ms-3">
+          <input class="form-check-input" id="freefrom_lactose" type="checkbox" 
+            [(ngModel)]="freeFrom.lactose" [ngModelOptions]="{standalone: true}" (change)="onFreeFromChange()">
+          <label class="form-check-label" for="freefrom_lactose">Lactose</label>
+        </div>
+        <div class="form-check form-check-sm d-inline-block ms-3">
+          <input class="form-check-input" id="freefrom_sugar" type="checkbox" 
+            [(ngModel)]="freeFrom.sugar" [ngModelOptions]="{standalone: true}" (change)="onFreeFromChange()">
+          <label class="form-check-label" for="freefrom_sugar">Sugar</label>
+        </div>
+        <div></div>          
+      </div>
+      <div class="col-md-3">
+        <select class="form-select form-select-sm" formControlName="vegan" (change)="onFormChange()">
+          <option value="">Vegan</option>
+          <option *ngFor="let veg of vegs" [value]="veg[0]">{{ veg[1] }}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <input class="form-control form-control-sm" id="hot" type="number" min="0" max="5" formControlName="hot" placeholder="Hot" (change)="onFormChange()">
+      </div>
+    </div>
+  </form>
+</div>

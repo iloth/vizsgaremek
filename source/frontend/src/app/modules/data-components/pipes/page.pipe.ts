@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Pipe({
-  name: 'page',
+  name: 'dcPage',
   pure: false
 })
 export class PagePipe<Entity extends {[key: string] : any}> implements PipeTransform {

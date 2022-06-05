@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IDataColumn } from '../models/DataTableModels';
 
 @Pipe({
-  name: 'sort',
+  name: 'dcSort',
   pure: false
 })
 export class SortPipe<Entity extends {[key: string] : any}> implements PipeTransform {

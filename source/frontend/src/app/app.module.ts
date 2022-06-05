@@ -14,6 +14,8 @@ import { NavigationComponent } from './controls/navigation/navigation.component'
 import { BreadcrumbsComponent } from './controls/breadcrumbs/breadcrumbs.component';
 import { PartsComponent } from './pages/admin/parts/parts.component';
 import { PartComponent } from './pages/admin/part/part.component';
+import { BurgerPartFilterComponent } from './controls/burger-part-filter/burger-part-filter.component';
+import { BurgerPartFilterPipe } from './pipes/burger-part-filter.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,8 @@ import { PartComponent } from './pages/admin/part/part.component';
     UserComponent,
     PartsComponent,
     PartComponent,
+    BurgerPartFilterComponent,
+    BurgerPartFilterPipe,
   ],
   imports: [
     BrowserModule,

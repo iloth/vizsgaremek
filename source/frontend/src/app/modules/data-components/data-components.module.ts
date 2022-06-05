@@ -21,7 +21,10 @@ import { PagePipe } from './pipes/page.pipe';
   ],
   exports: [
     DataTableComponent,
-    PagerComponent
+    PagerComponent,
+    FilterPipe,
+    SortPipe,
+    PagePipe
   ]
 })
 export class DataComponentsModule { }

@@ -24,7 +24,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of items | filter:filtersJSON | sort:columns:sortKey:sortDirection | page:pager:currPage:pageSize ">
+    <tr *ngFor="let item of items | dcFilter:filtersJSON | dcSort:columns:sortKey:sortDirection | dcPage:pager:currPage:pageSize ">
       <td *ngFor="let col of columns">
         <input *ngIf="col.display != undefined && col.display === Displays.Checkbox" class="form-check-input" type="checkbox" readonly [checked]="item[col.key]">
         <a *ngIf="col.display != undefined && col.display === Displays.Email" [href]="'mailto:' + item[col.key]">{{ item[col.key] }}</a>
@@ -38,5 +38,5 @@
   </tbody>
 </table>
 
-<dc-pager *ngIf="pager" [pageSize]="pageSize" [currPage]="currPage" [itemsCount]="(items | filter: filtersJSON) ? (items | filter: filtersJSON).length : 0" (pageChanged)="onChangePage($event)">
+<dc-pager *ngIf="pager" [pageSize]="pageSize" [currPage]="currPage" [itemsCount]="(items | dcFilter: filtersJSON) ? (items | dcFilter: filtersJSON).length : 0" (pageChanged)="onChangePage($event)">
 </dc-pager>

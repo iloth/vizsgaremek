@@ -1,6 +1,8 @@
 <h1>Burger Parts</h1>
 
 <button class="btn btn-primary" (click)="onCreateClick()"><i class="fa fa-plus"></i> Create new burger part</button>
- 
-<dc-data-table [items]="parts$ | async" [columns]="columns" [editButton]="true" [filterable]="false" (editButtonClick)="onEditClick($event)">
+
+<app-burger-part-filter [availableOnly]="false" (filterChanged)="onFilterChanged($event)"></app-burger-part-filter> 
+
+<dc-data-table [items]="parts$ | async | dcFilter:filter" [columns]="columns" [editButton]="true" [filterable]="false" (editButtonClick)="onEditClick($event)">
 </dc-data-table>
