@@ -1,19 +1,19 @@
 import mongoose, { Document, UpdateQuery } from "mongoose";
 
-export abstract class BaseService<T extends Document> {
+export abstract class BaseService<Model extends Document> {
   constructor(
-    private model: mongoose.Model<T, {}, {}, {}> 
+    private model: mongoose.Model<Model, {}, {}, {}> 
   ) { }
 
-  async getAll(): Promise<T[]> {
+  async getAll(): Promise<Model[]> {
     return await this.model.find();
   }
 
-  async get(id: string): Promise<T | null> {
+  async get(id: string): Promise<Model | null> {
     return await this.model.findById(new mongoose.Types.ObjectId(id));
   }
 
-  async create(entity: T): Promise<T> {
+  async create(entity: Model): Promise<Model> {
     delete entity._id;
     const userDoc = new this.model(entity);
     userDoc.isNew = true;
@@ -21,8 +21,8 @@ export abstract class BaseService<T extends Document> {
     return userDoc;
   }
 
-  async update(id: string, entity: T): Promise<T | null> {
-    await this.model.findByIdAndUpdate(new mongoose.Types.ObjectId(id), entity as any as UpdateQuery<T>);
+  async update(id: string, entity: Model): Promise<Model | null> {
+    await this.model.findByIdAndUpdate(new mongoose.Types.ObjectId(id), entity as any as UpdateQuery<Model>);
     return await this.model.findById(new mongoose.Types.ObjectId(id));
   }
   

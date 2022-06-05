@@ -5,11 +5,11 @@ import swaggerUi from 'swagger-ui-express';
 import logger from './utils/logger';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import LoggerStream from "./utils/LoggerStream";
 import adminRouter from './routes/admin/AdminRouter';
 import mainRouter from './routes/MainRouter';
 
-const cors = require('cors');
 const app = express();
 
 //db connection
@@ -39,6 +39,7 @@ app.use('/api/admin', adminRouter.router);
 app.use((err: HttpException, req: Request, res: Response, next: NextFunction) => {
   if (err) {
     logger.error(err.origError.message);
+    logger.debug(req);
 
     res.statusCode = err.status;
     res.end(JSON.stringify(err.message));

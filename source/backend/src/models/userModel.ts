@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { IAddress } from "./addressModel";
+import { IAddress } from "./IAddress";
 
 export interface IUser extends Document {
   name: string;
@@ -10,7 +10,7 @@ export interface IUser extends Document {
   roles: string[];
 }
 
-export const userSchema = new Schema<IUser>({
+const userSchema = new Schema<IUser>({
   name: String,
   email: String,
   password: String,
