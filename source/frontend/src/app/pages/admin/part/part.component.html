@@ -45,7 +45,7 @@
       </div>
 
       <div class="row mb-3">
-        <div class="col-md-4">
+        <div class="col-md-5">
           <label class="form-label" for="freeFrom">Free from:</label>
           <div></div>
           <div class="form-check d-inline-block ms-3">
@@ -71,7 +71,7 @@
             <option *ngFor="let veg of vegs" [value]="veg[0]">{{ veg[1] }}</option>
           </select>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <label class="form-label" for="hot">Hot:</label>
           <input class="form-control" id="hot" type="number" min="0" max="5" formControlName="hot"  [class.is-invalid]="control('hot').invalid && (control('hot').dirty || control('hot').touched)">
           <div *ngIf="control('hot').invalid && (control('hot').dirty || control('hot').touched)" class="alert alert-danger">

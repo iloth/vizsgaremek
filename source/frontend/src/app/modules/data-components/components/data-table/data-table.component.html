@@ -31,7 +31,7 @@
         <a *ngIf="col.display != undefined && col.display === Displays.Phone" [href]="'tel:' + item[col.key]">{{ item[col.key] }}</a>
         <span *ngIf="col.display === undefined"> {{ col.format ? col.format(item[col.key]) : item[col.key] }}</span>
       </td>
-      <td *ngIf="editButton || filterable">
+      <td *ngIf="editButton || filterable" class="text-end">
         <button *ngIf="editButton" class="btn btn-sm btn-outline-primary" (click)="onEditButtonClick(item)" title="Edit"><i class="fa fa-pencil"></i></button>
       </td>
     </tr>

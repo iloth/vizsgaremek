@@ -69,7 +69,11 @@ export class DataTableComponent<Entity extends {[key: string] : any}> implements
 
   onSortClick(key: string): void {
     if (this.sortKey === key) {
-      this.sortDirection *= -1;
+      if (this.sortDirection === 1 ) {
+        this.sortDirection = -1;
+      } else {
+        this.sortKey = null;
+      }
     } else {
       this.sortKey = key;
       this.sortDirection = 1;

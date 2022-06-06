@@ -16,6 +16,8 @@ import { PartsComponent } from './pages/admin/parts/parts.component';
 import { PartComponent } from './pages/admin/part/part.component';
 import { BurgerPartFilterComponent } from './controls/burger-part-filter/burger-part-filter.component';
 import { BurgerPartFilterPipe } from './pipes/burger-part-filter.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +39,8 @@ import { BurgerPartFilterPipe } from './pipes/burger-part-filter.pipe';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    DataComponentsModule
+    DataComponentsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

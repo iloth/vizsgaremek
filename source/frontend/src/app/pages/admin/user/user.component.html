@@ -22,26 +22,32 @@
 
       <div class="mb-3" formGroupName="address">
         <label class="form-label">Address:</label>
-        <div class="mb-3 ms-5">
-          <label class="form-label" for="zip">Zip Code:</label>
-          <input class="form-control" id="zip" type="text" formControlName="zip" [class.is-invalid]="control('address.zip').invalid && (control('address.zip').dirty || control('address.zip').touched)">
-          <div *ngIf="control('address.zip').invalid && (control('address.zip').dirty || control('address.zip').touched)" class="alert alert-danger">
-            <div *ngIf="control('address.zip').errors?.['required']">Zip is required.</div>
-            <div *ngIf="control('address.zip').errors?.['minlength']">Zip must be at least 3 characters long.</div>
+        <div class="ms-3">
+          <div class="row mb-3">
+            <div class="col-md-5">
+              <label class="form-label" for="zip">Zip Code:</label>
+              <input class="form-control" id="zip" type="text" formControlName="zip" [class.is-invalid]="control('address.zip').invalid && (control('address.zip').dirty || control('address.zip').touched)">
+              <div *ngIf="control('address.zip').invalid && (control('address.zip').dirty || control('address.zip').touched)" class="alert alert-danger">
+                <div *ngIf="control('address.zip').errors?.['required']">Zip is required.</div>
+                <div *ngIf="control('address.zip').errors?.['minlength']">Zip must be at least 3 characters long.</div>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <label class="form-label" for="city">City:</label>
+              <input class="form-control" id="city" type="text" formControlName="city" [class.is-invalid]="control('address.city').invalid && (control('address.city').dirty || control('address.city').touched)">
+              <div *ngIf="control('address.city').invalid && (control('address.city').dirty || control('address.city').touched)" class="alert alert-danger">
+                <div *ngIf="control('address.city').errors?.['required']">City is required.</div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="mb-3 ms-5">
-          <label class="form-label" for="city">City:</label>
-          <input class="form-control" id="city" type="text" formControlName="city" [class.is-invalid]="control('address.city').invalid && (control('address.city').dirty || control('address.city').touched)">
-          <div *ngIf="control('address.city').invalid && (control('address.city').dirty || control('address.city').touched)" class="alert alert-danger">
-            <div *ngIf="control('address.city').errors?.['required']">City is required.</div>
-          </div>
-        </div>
-        <div class="mb-3 ms-5">
-          <label class="form-label" for="address">Address:</label>
-          <input class="form-control" id="address" type="text" formControlName="address" [class.is-invalid]="control('address.address').invalid && (control('address.address').dirty || control('address.address').touched)">
-          <div *ngIf="control('address.address').invalid && (control('address.address').dirty || control('address.address').touched)" class="alert alert-danger">
-            <div *ngIf="control('address.address').errors?.['required']">City is required.</div>
+          <div class="row mb-3">
+            <div class="col">
+              <label class="form-label" for="address">Address:</label>
+              <input class="form-control" id="address" type="text" formControlName="address" [class.is-invalid]="control('address.address').invalid && (control('address.address').dirty || control('address.address').touched)">
+              <div *ngIf="control('address.address').invalid && (control('address.address').dirty || control('address.address').touched)" class="alert alert-danger">
+                <div *ngIf="control('address.address').errors?.['required']">City is required.</div>
+              </div>  
+            </div>
           </div>
         </div>
       </div>

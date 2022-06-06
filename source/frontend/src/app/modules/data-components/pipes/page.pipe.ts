@@ -9,7 +9,7 @@ export class PagePipe<Entity extends {[key: string] : any}> implements PipeTrans
 
   transform(value: Entity[] | null, pageable: boolean, currPage: number = 1, pageSize: number = environment.dataComponents.pager.defaultPageSize): Entity[] | null {
     if (pageable && value) {
-      return (value ?? []).slice((currPage - 1) * pageSize, (currPage - 1) * pageSize + pageSize - 1)
+      return (value ?? []).slice((currPage - 1) * pageSize, (currPage - 1) * pageSize + pageSize);
     }
     return value;
   }
