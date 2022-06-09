@@ -26,7 +26,7 @@ export abstract class BaseService<Model extends Document> {
     return await this.model.findById(new mongoose.Types.ObjectId(id));
   }
   
-  async remove(id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     await this.model.findByIdAndDelete(new mongoose.Types.ObjectId(id));
   }
 }

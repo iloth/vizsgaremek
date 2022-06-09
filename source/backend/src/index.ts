@@ -38,6 +38,7 @@ app.use('/api/admin', adminRouter.router);
 //error handling
 app.use((err: HttpException, req: Request, res: Response, next: NextFunction) => {
   if (err) {
+    console.error(err.origError);
     logger.error(err.origError.message);
     logger.debug(req);
 

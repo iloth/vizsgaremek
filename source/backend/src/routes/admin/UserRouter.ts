@@ -1,10 +1,10 @@
 import { IUser } from "../../models/userModel";
-import userService from "../../services/UserService";
+import userController from "../../controllers/UserController";
 import { BaseApiRouter } from "../BaseApiRouter";
 
 class UserRouter extends BaseApiRouter<IUser> {
   constructor() {
-    super(userService);
+    super(userController);
   }
 }
 

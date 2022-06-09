@@ -1,64 +1,22 @@
 import { Document } from "mongoose";
-import { BaseService } from "../services/BaseService";
-import { Request, Response, NextFunction } from 'express'
-import HttpException from "../utils/HttpException";
 import { BaseRouter } from "./BaseRouter";
+import { BaseController } from "../controllers/BaseController";
+import { Request, Response, NextFunction } from "express";
 
 export abstract class BaseApiRouter<Model extends Document> extends BaseRouter {
   constructor(
-    private service: BaseService<Model>
+    private controller: BaseController<Model>
   ) {
     super();
 
-    this.router.get('/', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-      try {
-        const entities = await service.getAll();
-        res.json(entities);
-      } catch (error) {
-        return next(new HttpException(500, 'entities\'t get entities', error));
-      }
-    });
+    this.router.get('/', (req: Request, res: Response, next: NextFunction) => { controller.getAll(req, res, next); });
     
-    this.router.post('/', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-      try {
-        const entity = req.body as Model;
-        const dbEntity = await service.create(entity);
-        res.json(dbEntity);    
-      } catch (error) {
-        console.log(error);
-        return next(new HttpException(500, 'Couldn\'t add entity', error));
-      }
-    });
+    this.router.post('/', (req: Request, res: Response, next: NextFunction) => { controller.create(req, res, next); });
     
-    this.router.get('/:id', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-      try {
-        const id = req.params.id;
-        const dbEntity = await service.get(id);
-        res.json(dbEntity);
-      } catch (error) {
-        return next(new HttpException(500, 'Couldn get entity', error));
-      }
-    });
+    this.router.get('/:id', (req: Request, res: Response, next: NextFunction) => { controller.get(req, res, next); });
     
-    this.router.put('/:id', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-      try {
-        const id = req.params.id;
-        const entity = req.body;
-        const dbEntity = await service.update(id, entity);
-        res.json(dbEntity);    
-      } catch (error) {
-        return next(new HttpException(500, 'Couldn update entity', error));
-      }
-    });
+    this.router.put('/:id', (req: Request, res: Response, next: NextFunction) => { controller.update(req, res, next); });
     
-    this.router.delete('/:id', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-      try {
-        const id = req.params.id;
-        await service.remove(id);
-        res.end();    
-      } catch (error) {
-        return next(new HttpException(500, 'Couldn delete entity', error));
-      }
-    });
+    this.router.delete('/:id', (req: Request, res: Response, next: NextFunction) => { controller.delete(req, res, next); });
   }
 } 
