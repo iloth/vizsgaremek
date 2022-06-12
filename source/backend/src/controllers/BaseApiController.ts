@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { Document } from "mongoose";
-import { BaseService } from "../services/BaseService";
+import { BaseApiService } from "../services/BaseApiService";
 import HttpException from "../utils/HttpException";
 
-export abstract class BaseController<Model extends Document> {
+export abstract class BaseApiController<Model extends Document> {
   constructor(
-    private service: BaseService<Model>
+    private service: BaseApiService<Model>
   ) {}
 
   async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -13,7 +13,7 @@ export abstract class BaseController<Model extends Document> {
       const entities = await this.service.getAll();
       res.json(entities);
     } catch (error) {
-      next(new HttpException(500, 'entities\'t get entities', error));
+      next(new HttpException(500, 'Couldn\'t get entities', error));
     }
   };
 

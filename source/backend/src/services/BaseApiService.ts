@@ -1,6 +1,6 @@
 import mongoose, { Document, UpdateQuery } from "mongoose";
 
-export abstract class BaseService<Model extends Document> {
+export abstract class BaseApiService<Model extends Document> {
   constructor(
     private model: mongoose.Model<Model, {}, {}, {}> 
   ) { }

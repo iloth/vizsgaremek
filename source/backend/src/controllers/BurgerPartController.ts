@@ -1,8 +1,8 @@
 import { IBurgerPart } from "../models/burgerPartModel";
-import { BaseController } from "./BaseController";
+import { BaseApiController } from "./BaseApiController";
 import burgerPartService from '../services/BurgerPartService';
 
-class BurgerPartController extends BaseController<IBurgerPart> {
+class BurgerPartController extends BaseApiController<IBurgerPart> {
   constructor() { 
     super(burgerPartService);
   }

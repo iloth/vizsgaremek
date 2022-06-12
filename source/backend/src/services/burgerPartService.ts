@@ -1,7 +1,7 @@
 import { IBurgerPart, burgerPartModel } from "../models/burgerPartModel";
-import { BaseService } from "./BaseService";
+import { BaseApiService } from "./BaseApiService";
 
-class BurgerPartService extends BaseService<IBurgerPart> {
+class BurgerPartService extends BaseApiService<IBurgerPart> {
   constructor() {
     super(burgerPartModel);
   }

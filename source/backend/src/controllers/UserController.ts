@@ -1,8 +1,8 @@
 import { IUser } from "../models/userModel";
-import { BaseController } from "./BaseController";
+import { BaseApiController } from "./BaseApiController";
 import userService from '../services/UserService';
 
-class UserController extends BaseController<IUser> {
+class UserController extends BaseApiController<IUser> {
   constructor() { 
     super(userService);
   }

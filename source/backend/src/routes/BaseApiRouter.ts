@@ -1,11 +1,11 @@
 import { Document } from "mongoose";
 import { BaseRouter } from "./BaseRouter";
-import { BaseController } from "../controllers/BaseController";
+import { BaseApiController } from "../controllers/BaseApiController";
 import { Request, Response, NextFunction } from "express";
 
 export abstract class BaseApiRouter<Model extends Document> extends BaseRouter {
   constructor(
-    private controller: BaseController<Model>
+    private controller: BaseApiController<Model>
   ) {
     super();
 
