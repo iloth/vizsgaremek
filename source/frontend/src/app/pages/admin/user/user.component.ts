@@ -29,8 +29,8 @@ export class UserComponent extends BaseFormPage implements OnInit {
       city: new FormControl('', [Validators.required]),
       address: new FormControl('', [Validators.required]),
     }),
-    active: new FormControl(''),
-    roles: new FormControl([], [Validators.required]),
+    active: new FormControl(true),
+    roles: new FormControl([] as string[], [Validators.required]),
   })  
 
   roles = {

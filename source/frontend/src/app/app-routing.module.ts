@@ -7,6 +7,10 @@ import { NotFoundComponent } from './pages/other/not-found/not-found.component';
 import { ErrorComponent } from './pages/other/error/error.component';
 import { PartsComponent } from './pages/admin/parts/parts.component';
 import { PartComponent } from './pages/admin/part/part.component';
+import { ForbiddenComponent } from './pages/other/forbidden/forbidden.component';
+import { IsLoggedInGuard } from './services/auth/IsLoggedInGuard';
+import { IsRoleMemberGuard } from './services/auth/IsRoleMemberGuard';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   {
@@ -22,20 +26,44 @@ const routes: Routes = [
     component: ErrorComponent
   },
   {
+    path: 'forbidden',
+    component: ForbiddenComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
     path: 'admin/users',
-    component: UsersComponent
+    component: UsersComponent,
+    canActivate: [IsLoggedInGuard, IsRoleMemberGuard],
+    data: {
+      expectedRole: 'admin'
+    }
   },
   {
     path: 'admin/user/:id',
-    component: UserComponent
+    component: UserComponent,
+    canActivate: [IsLoggedInGuard, IsRoleMemberGuard],
+    data: {
+      expectedRole: 'admin'
+    }
   },
   {
     path: 'admin/parts',
-    component: PartsComponent
+    component: PartsComponent,
+    canActivate: [IsLoggedInGuard, IsRoleMemberGuard],
+    data: {
+      expectedRole: 'admin'
+    }
   },
   {
     path: 'admin/part/:id',
-    component: PartComponent
+    component: PartComponent,
+    canActivate: [IsLoggedInGuard, IsRoleMemberGuard],
+    data: {
+      expectedRole: 'admin'
+    }
   },
   {
     path: '**',

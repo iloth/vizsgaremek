@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { DataComponentsModule } from './modules/data-components/data-components.module';
 import { UsersComponent } from './pages/admin/users/users.component';
 import { HomeComponent } from './pages/home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserComponent } from './pages/admin/user/user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from './pages/other/not-found/not-found.component';
@@ -17,6 +17,10 @@ import { PartComponent } from './pages/admin/part/part.component';
 import { BurgerPartFilterComponent } from './controls/burger-part-filter/burger-part-filter.component';
 import { BurgerPartFilterPipe } from './pipes/burger-part-filter.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ForbiddenComponent } from './pages/other/forbidden/forbidden.component';
+import { JwtInterceptor } from './services/auth/JwtInterceptor';
+import { AuthService } from './services/auth/AuthService';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PartComponent,
     BurgerPartFilterComponent,
     BurgerPartFilterPipe,
+    ForbiddenComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +48,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DataComponentsModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      deps: [AuthService],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

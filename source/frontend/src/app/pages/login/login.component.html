@@ -1,0 +1,29 @@
+<div class="row justify-content-md-center">
+  <div class="col-md-8 col-lg-6 col-xl-4 col-xxl-4">
+    <form [formGroup]="mainForm" (ngSubmit)="onSubmit()">
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    
+      <div class="form-floating">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email"
+          formControlName="email" [class.is-invalid]="controlIsInvalid('email')">
+        <label for="floatingInput">Email address</label>
+        <div *ngIf="controlIsInvalid('email')" class="alert alert-danger">
+          <div *ngIf="control('email').errors?.['required']">Email is required.</div>
+          <div *ngIf="control('email').errors?.['email']">Email must be valid email.</div>
+        </div>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password"
+          formControlName="password" [class.is-invalid]="controlIsInvalid('password')">
+        <label for="floatingPassword">Password</label>
+        <div *ngIf="controlIsInvalid('password')" class="alert alert-danger">
+          <div *ngIf="control('password').errors?.['required']">Password is required.</div>
+          <div *ngIf="control('password').errors?.['minlength']">Minimum length of password is 8 character.</div>
+        </div>
+      </div>
+
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+      <p *ngIf="serverError && serverError != ''" class="text-danger">{{ serverError }}</p>
+    </form>
+  </div>
+</div>

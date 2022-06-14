@@ -14,4 +14,8 @@ export abstract class BaseFormPage extends BasePage {
     return this.mainForm.get(path) as FormControl;
   }
 
+  public controlIsInvalid(path: string): boolean {
+    return this.control(path).invalid && (this.control(path).dirty || this.control(path).touched)
+  }
+
 }

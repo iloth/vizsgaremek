@@ -20,7 +20,7 @@ class UserService extends BaseApiService<IUser> {
   async checkPassword(email: string, password: string): Promise<IUser | null> {
     const user = await userModel.findOne({ email: email });
     if (user && this.comparePassword(password, user.password)) {
-      return user;
+      return user.toObject();
     } else {
       return null;
     }

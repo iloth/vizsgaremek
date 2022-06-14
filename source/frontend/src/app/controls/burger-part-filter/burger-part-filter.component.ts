@@ -17,7 +17,7 @@ export class BurgerPartFilterComponent implements OnInit {
   mainForm = new FormGroup({
     name: new FormControl(''),
     category: new FormControl(''),
-    freeFrom: new FormControl([]),
+    freeFrom: new FormControl([] as string[]),
     vegan: new FormControl(''),
     hot: new FormControl(null),
     status: new FormControl(this.availableOnly ? 'ok': ''),

@@ -56,11 +56,13 @@ class AuthService {
 
   async checkAccessToken(accessToken: string): Promise<IUser | null> {
     const user: IUser = jwt.verify(accessToken, config.get('auth.accessTokenKey')) as any as IUser;
-    if (user && AuthService.refreshTokens.has(user._id)) {
+    return user;
+/*     if (user && AuthService.refreshTokens.has(user._id)) {
       return user;
     } else {
       return null;
     }
+ */  
   }
 
 }
