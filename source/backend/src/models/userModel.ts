@@ -10,6 +10,7 @@ export interface IUser extends Document {
   roles: string[];
 }
 
+//TODO: validation
 const userSchema = new Schema<IUser>({
   name: {
     type: String,

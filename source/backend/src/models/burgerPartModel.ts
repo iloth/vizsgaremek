@@ -13,6 +13,7 @@ export interface IBurgerPart extends Document {
   defaultPlace: number;
 }
 
+//TODO: validation
 const burgerPartSchema = new Schema<IBurgerPart>({
   name: String,
   description: String,

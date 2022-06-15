@@ -8,6 +8,26 @@ class UserService extends BaseApiService<IUser> {
     super(userModel);
   }
 
+  //#region override gets to remove passwords
+
+  override async getAll(): Promise<IUser[]> {
+    return (await super.getAll()).map(userModel => {
+      const user = userModel.toObject();
+      delete user.password;
+      return user as any as IUser;
+    });
+  }
+
+  override async get(id: string): Promise<IUser | null> {
+    const user = await super.get(id) as any;
+    if(user) {
+      delete user.password;
+    }
+    return user as IUser;
+  }
+
+  //#endregion
+
   private comparePassword(plainPassword: string, hashedPassword: string): boolean {
     return bcrypt.compareSync(plainPassword, hashedPassword);
   }
@@ -20,7 +40,9 @@ class UserService extends BaseApiService<IUser> {
   async checkPassword(email: string, password: string): Promise<IUser | null> {
     const user = await userModel.findOne({ email: email });
     if (user && this.comparePassword(password, user.password)) {
-      return user.toObject();
+      const user2 = user.toObject();
+      delete user2.password;
+      return user2 as any as IUser;
     } else {
       return null;
     }
@@ -28,7 +50,7 @@ class UserService extends BaseApiService<IUser> {
 
   async resetPassword(id: string, password: string): Promise<void> {
     const hash = this.hashPassword(password);
-    const user = await userModel.findByIdAndUpdate(new mongoose.Types.ObjectId(id), { password: hash });
+    await userModel.findByIdAndUpdate(new mongoose.Types.ObjectId(id), { password: hash });
   }
 
 }

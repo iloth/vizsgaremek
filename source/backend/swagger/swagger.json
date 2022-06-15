@@ -13,8 +13,8 @@
   "basePath": "/",
   "tags": [
     {
-      "name": "Admin",
-      "description": "API for admin pages"
+      "name": "Authentication",
+      "description": "API for authentication"
     },
     {
       "name": "Admin/Users",
@@ -28,6 +28,13 @@
   "schemes": [
     "http"
   ],
+  "securityDefinitions": {
+    "bearerAuth": {
+      "name": "Authorization",
+      "type": "apiKey",
+      "in": "header"
+    }
+  },
   "consumes": [
     "application/json"
   ],
@@ -35,12 +42,59 @@
     "application/json"
   ],
   "paths": {
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "login info",
+            "schema": {
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "accessToken": {
+                  "type": "string"
+                },
+                "refreshToken": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/admin/users": {
       "get": {
         "tags": [
           "Admin/Users"
         ],
         "summary": "Get list of all users",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -58,6 +112,11 @@
           "Admin/Users"
         ],
         "summary": "Create new user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "body",
@@ -81,7 +140,6 @@
             }
           }
         }
-
       }
     },
     "/api/admin/users/{id}": {
@@ -90,6 +148,11 @@
           "Admin/Users"
         ],
         "summary": "Get a user by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "path",
@@ -98,7 +161,7 @@
             "required": true,
             "description": "Indentifier of the person"
           }
-        ],      
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -109,13 +172,18 @@
           "500": {
             "description": "Server error"
           }
-        }  
+        }
       },
       "put": {
         "tags": [
           "Admin/Users"
         ],
         "summary": "Set a user by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "path",
@@ -136,8 +204,7 @@
               "$ref": "#/definitions/User"
             }
           }
-
-        ],      
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -148,13 +215,18 @@
           "500": {
             "description": "Server error"
           }
-        }  
+        }
       },
       "delete": {
         "tags": [
           "Admin/Users"
         ],
         "summary": "Delete a user by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "path",
@@ -163,7 +235,7 @@
             "required": true,
             "description": "Indentifier of the person"
           }
-        ],      
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -171,8 +243,8 @@
           "500": {
             "description": "Server error"
           }
-        }  
-      }      
+        }
+      }
     },
     "/api/admin/parts": {
       "get": {
@@ -180,13 +252,18 @@
           "Admin/BurgerParts"
         ],
         "summary": "Get list of burger parts",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/BurgerParts"
+                "$ref": "#/definitions/BurgerPart"
               }
             }
           }
@@ -197,6 +274,11 @@
           "Admin/BurgerParts"
         ],
         "summary": "Create new part",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "body",
@@ -219,8 +301,7 @@
             }
           }
         }
-
-      }      
+      }
     },
     "/api/admin/parts/{id}": {
       "get": {
@@ -228,6 +309,11 @@
           "Admin/BurgerParts"
         ],
         "summary": "Get a part by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "path",
@@ -236,7 +322,7 @@
             "required": true,
             "description": "Indentifier of the burger part"
           }
-        ],      
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -247,13 +333,18 @@
           "500": {
             "description": "Server error"
           }
-        }  
+        }
       },
       "put": {
         "tags": [
           "Admin/BurgerParts"
         ],
         "summary": "Set a part by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "path",
@@ -274,7 +365,7 @@
               "$ref": "#/definitions/BurgerPart"
             }
           }
-        ],      
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -285,13 +376,18 @@
           "500": {
             "description": "Server error"
           }
-        }  
+        }
       },
       "delete": {
         "tags": [
           "Admin/BurgerParts"
         ],
         "summary": "Delete a part by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "path",
@@ -300,7 +396,7 @@
             "required": true,
             "description": "Indentifier of the burger part"
           }
-        ],      
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -308,8 +404,8 @@
           "500": {
             "description": "Server error"
           }
-        }  
-      }      
+        }
+      }
     }
   },
   "definitions": {
@@ -331,13 +427,13 @@
           "type": "object",
           "properties": {
             "zip": {
-              "type": "string" 
+              "type": "string"
             },
             "city": {
-              "type": "string" 
+              "type": "string"
             },
             "address": {
-              "type": "string" 
+              "type": "string"
             }
           }
         },
