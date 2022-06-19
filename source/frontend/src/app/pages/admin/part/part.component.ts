@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as bootstrap from 'bootstrap';
 import { BurgerPartCategories, BurgerPartModel, BurgerPartStatuses, BurgerPartVegetarian } from 'src/app/models/common/BurgerPartModel';
-import { EditModes } from 'src/app/models/common/EditModes';
+import { EditModes } from 'src/app/utils/EditModes';
 import { BurgerPartService } from 'src/app/services/admin/BurgerPartsService';
 import { BaseFormPage } from '../../BaseFormPage';
 
@@ -40,8 +40,6 @@ export class PartComponent extends BaseFormPage implements OnInit {
     lactose: false, 
     sugar: false
   }
-
-  editMode: EditModes = EditModes.Create;
 
   categories = Object.entries(BurgerPartCategories);
   statuses = Object.entries(BurgerPartStatuses);

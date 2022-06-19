@@ -10,30 +10,51 @@ export interface IUser extends Document {
   roles: string[];
 }
 
-//TODO: validation
 const userSchema = new Schema<IUser>({
   name: {
     type: String,
-    required: true
+    required: [true, 'Name is required.'],
+    minlength: [5, 'Minimum length is 5 but got {VALUE}.']
   },
   email: {
     type: String,
-    required: true,
+    required: [true, 'Email is required.'],
+    validate: {
+      validator: function(value : string) {
+        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+      },
+      message: () => 'Not valid email.'
+    },
     index: {
       unique: true
     }
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    minlength: [8, 'Minimum length is 8 but got {VALUE}.']
   },
   address: {
-    zip: String,
-    city: String,
-    address: String
+    zip: {
+      type: String
+    },
+    city: {
+      type: String
+    },
+    address: {
+      type: String
+    }
   },
-  active: Boolean,
-  roles: [String]
+  active: {
+    type: Boolean
+  },
+  roles: {
+    type: [String],
+    enum: { 
+      values: ['user', 'empl', 'admin'], 
+      message: '{VALUE} is not valid role.'
+    }
+  }
 });
 
 export const userModel = mongoose.model<IUser>('User', userSchema);

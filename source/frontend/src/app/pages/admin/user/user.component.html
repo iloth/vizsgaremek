@@ -22,6 +22,25 @@
         </div>
       </div>
 
+      <div *ngIf="editMode == EditModes.Create" class="mb-3">
+        <label class="form-label" for="password">Password:</label>
+        <input class="form-control" id="password" type="password" 
+          formControlName="password" [class.is-invalid]="controlIsInvalid('password')">
+        <div *ngIf="controlIsInvalid('password')" class="alert alert-danger">
+          <div *ngIf="control('password').errors?.['required']">Password is required.</div>
+          <div *ngIf="control('password').errors?.['minlength']">Password must be at least 8 characters long.</div>
+        </div>
+      </div>
+
+      <div *ngIf="editMode == EditModes.Create" class="mb-3">
+        <label class="form-label" for="password2">Confirm password:</label>
+        <input class="form-control" id="password2" type="password" 
+          formControlName="password2" [class.is-invalid]="controlIsInvalid('password2')">
+        <div *ngIf="controlIsInvalid('password2')" class="alert alert-danger">
+          <div *ngIf="control('password2').errors?.['mustMatch']">Password and Confirm password do not match.</div>
+        </div>
+      </div>
+
       <div class="mb-3" formGroupName="address">
         <label class="form-label">Address:</label>
         <div class="ms-3">
@@ -108,13 +127,32 @@
         <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        NOT IMPLEMENTED - YET.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Reset Password</button>
-      </div>
+      <form [formGroup]="resetPasswordForm" (ngSubmit)="onResetPasswordSubmit()">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label" for="resetPassword">Password:</label>
+            <input class="form-control" id="resetPassword" type="password" 
+              formControlName="password" [class.is-invalid]="controlIsInvalid('password', resetPasswordForm)">
+            <div *ngIf="controlIsInvalid('password', resetPasswordForm)" class="alert alert-danger">
+              <div *ngIf="control('password', resetPasswordForm).errors?.['required']">Password is required.</div>
+              <div *ngIf="control('password', resetPasswordForm).errors?.['minlength']">Password must be at least 8 characters long.</div>
+            </div>
+          </div>
+    
+          <div class="mb-3">
+            <label class="form-label" for="resetPassword2">Confirm password:</label>
+            <input class="form-control" id="resetPassword2" type="password" 
+              formControlName="password2" [class.is-invalid]="controlIsInvalid('password2', resetPasswordForm)">
+            <div *ngIf="controlIsInvalid('password2', resetPasswordForm)" class="alert alert-danger">
+              <div *ngIf="control('password2', resetPasswordForm).errors?.['mustMatch']">Password and Confirm password do not match.</div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" [disabled]="resetPasswordForm.status != 'VALID'">Reset Password</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -145,7 +183,20 @@
       <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
     <div class="toast-body">
-      User has been saved!
+      User has been saved.
+    </div>
+  </div>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="resetPasswordToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <i class="fa fa-save me-2 text-primary"></i>
+      <strong class="me-auto text-primary">Info</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Password has been resetted.
     </div>
   </div>
 </div>

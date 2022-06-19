@@ -7,7 +7,6 @@ import morgan from 'morgan';
 import cors from 'cors';
 import LoggerStream from "./utils/LoggerStream";
 import adminRouter from './routes/admin/AdminRouter';
-import mainRouter from './routes/MainRouter';
 import authRouter from "./routes/AuthRouter";
 import authMiddleware from "./services/auth/AuthMiddleware";
 
@@ -17,19 +16,20 @@ const app = express();
 app.use(morgan(config.get('log.morgan.format'), { stream: new LoggerStream }));
 
 app.use(cors());
+app.use(express.static('public'));
 
 //routing
 app.use(express.json());
-app.use('/', mainRouter.router);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(require('../swagger/swagger.json')));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(require('../swagger/swagger.json')));
 app.use('/api/auth', authRouter.router);
 app.use('/api/admin', authMiddleware.isMemberOf("admin"), adminRouter.router);
 
 //error handling
 app.use((err: HttpException, req: Request, res: Response, next: NextFunction) => {
   if (err) {
-    console.error(err.origError);
-    logger.error(err.origError.message);
+    console.error(err)
+    //console.error(err.origError);
+    logger.error(err.origError?.message);
     logger.debug(req);
 
     res.statusCode = err.status;
@@ -38,3 +38,5 @@ app.use((err: HttpException, req: Request, res: Response, next: NextFunction) =>
 });
 
 export default app;
+
+//TODO: File upload

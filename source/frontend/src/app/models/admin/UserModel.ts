@@ -9,7 +9,12 @@ export class UserModel extends BaseModel {
       public address: IAddress = new Address(),
       public active: boolean = true,
       public roles: string[] = ["user"],
+      public password: string = ""
     ) {
     super(_id);
+  }
+
+  isMemberOf(role: string) {
+    return this.roles.includes(role);
   }
 }

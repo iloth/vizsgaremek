@@ -51,11 +51,12 @@ export class AuthService {
   }
 
   async logout() {
+    await firstValueFrom(this.http.post(this.logoutUrl, { accessToken: this.accessToken }));
+    
     sessionStorage.removeItem(this.storageKey);
     this.accessToken = null;
     this.refreshToken = null;
     this.currentUser$.next(null);
 
-    await firstValueFrom(this.http.post(this.logoutUrl, { accessToken: this.accessToken }));
   }
 }

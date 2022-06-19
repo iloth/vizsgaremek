@@ -5,7 +5,7 @@ import HttpException from "../utils/HttpException";
 
 export abstract class BaseApiController<Model extends Document> {
   constructor(
-    private service: BaseApiService<Model>
+    protected service: BaseApiService<Model>
   ) {}
 
   async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
