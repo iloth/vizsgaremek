@@ -72,6 +72,9 @@ export class UserComponent extends BaseFormPage implements OnInit {
             this.roles.admin = userModel.roles.find((r) => r == "admin") != undefined;
             this.roles.empl = userModel.roles.find((r) => r == "empl") != undefined;
             this.roles.user = userModel.roles.find((r) => r == "user") != undefined;
+
+            this.mainForm.removeControl('password');
+            this.mainForm.removeControl('password2');
           },
           (error: HttpErrorResponse) => {
             this.router.navigate(['/', 'error'], { skipLocationChange: true, queryParams: { error: JSON.stringify(error) } });            

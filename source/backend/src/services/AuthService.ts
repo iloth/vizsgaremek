@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import config from 'config'
-import userService from '../UserService';
-import { ILoginResult, IRefreshTokenResult } from '../../models/authentication';
-import { IUser } from '../../models/userModel';
+import userService from './UserService';
+import { ILoginResult, IRefreshTokenResult } from '../models/authentication';
+import { IUser } from '../models/userModel';
 
 class AuthService {
   constructor() {}
@@ -57,12 +57,6 @@ class AuthService {
   async checkAccessToken(accessToken: string): Promise<IUser | null> {
     const user: IUser = jwt.verify(accessToken, config.get('auth.accessTokenKey')) as any as IUser;
     return user;
-/*     if (user && AuthService.refreshTokens.has(user._id)) {
-      return user;
-    } else {
-      return null;
-    }
- */  
   }
 
 }

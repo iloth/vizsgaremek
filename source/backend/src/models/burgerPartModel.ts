@@ -24,7 +24,7 @@ const burgerPartSchema = new Schema<IBurgerPart>({
     type: String
   },
   image: {
-    type: mongoose.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId
   },
   price: {
     type: Number,

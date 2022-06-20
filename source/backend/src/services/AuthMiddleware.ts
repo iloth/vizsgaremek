@@ -24,20 +24,38 @@ class AuthMiddleware {
     res.sendStatus(403);
   }
 
-  isMemberOf(role: string): (req: Request, res: Response, next: NextFunction) => Promise<void> {
+  isMemberOf(roles: string | string[]): (req: Request, res: Response, next: NextFunction) => Promise<void> {
     return async (req: Request, res: Response, next: NextFunction) => {
       const accessToken = this.getAccessToken(req);
+      console.log('accessToken:', accessToken);
       if (accessToken) {
         const user = await authService.checkAccessToken(accessToken);
-        if (user && user.roles.includes(role)) {
-          return next();
+        console.log('user:', user);
+        console.log('roles:', roles);
+        
+        if (user) {
+          if (Array.isArray(roles)) {
+            let found: boolean = false;
+            roles.forEach((role) => {
+              if (user.roles.includes(role)) {
+                found = true;
+              }
+            });
+            if (found) {
+              return next();
+            }
+            console.log('Array, not-found');
+          } else {
+            if (user.roles.includes(roles)) {
+              return next();
+            }
+            console.log('NonArray, not-found');
+          }
         }
       }
       res.sendStatus(403);
     }
   }
-
-
-
 }
+
 export default new AuthMiddleware();

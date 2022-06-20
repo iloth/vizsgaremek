@@ -1,4 +1,4 @@
-import { BaseRouter } from "../BaseRouter";
+import { BaseRouter } from "./BaseRouter";
 import userRouter from './UserRouter';
 import burgerPartRouter from './BurgerPartRouter';
 

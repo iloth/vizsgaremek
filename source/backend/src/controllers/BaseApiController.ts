@@ -2,11 +2,14 @@ import { Request, Response, NextFunction } from "express";
 import { Document } from "mongoose";
 import { BaseApiService } from "../services/BaseApiService";
 import HttpException from "../utils/HttpException";
+import { BaseController } from "./BaseController";
 
-export abstract class BaseApiController<Model extends Document> {
+export abstract class BaseApiController<Model extends Document> extends BaseController {
   constructor(
     protected service: BaseApiService<Model>
-  ) {}
+  ) {
+    super();
+  }
 
   async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {

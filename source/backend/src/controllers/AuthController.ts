@@ -1,9 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import authService from "../services/auth/AuthService";
+import authService from "../services/AuthService";
 import HttpException from "../utils/HttpException";
+import { BaseController } from "./BaseController";
 
-class AuthController {
-  constructor() { }
+class AuthController extends BaseController {
+  constructor() { 
+    super();
+  }
 
   async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
