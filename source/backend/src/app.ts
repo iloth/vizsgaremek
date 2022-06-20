@@ -24,7 +24,7 @@ app.use(express.static('public'));
 app.use(express.json()); 
 
 //routing
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(require('../swagger/swagger.json')));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(require('./swagger/swagger.json')));
 app.use('/api/auth', authRouter.router);
 app.use('/api/my', authMiddleware.isLoggedIn, myRouter.router);
 app.use('/api/admin', authMiddleware.isMemberOf('admin'), adminRouter.router);
