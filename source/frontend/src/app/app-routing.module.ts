@@ -11,6 +11,7 @@ import { ForbiddenComponent } from './pages/other/forbidden/forbidden.component'
 import { IsLoggedInGuard } from './services/auth/IsLoggedInGuard';
 import { IsRoleMemberGuard } from './services/auth/IsRoleMemberGuard';
 import { LoginComponent } from './pages/login/login.component';
+import { OrdersComponent } from './pages/sale/orders/orders.component';
 
 const routes: Routes = [
   {
@@ -38,7 +39,7 @@ const routes: Routes = [
     component: UsersComponent,
     canActivate: [IsLoggedInGuard, IsRoleMemberGuard],
     data: {
-      expectedRole: 'admin'
+      expectedRoles: ['admin']
     }
   },
   {
@@ -46,7 +47,7 @@ const routes: Routes = [
     component: UserComponent,
     canActivate: [IsLoggedInGuard, IsRoleMemberGuard],
     data: {
-      expectedRole: 'admin'
+      expectedRoles: ['admin']
     }
   },
   {
@@ -54,7 +55,7 @@ const routes: Routes = [
     component: PartsComponent,
     canActivate: [IsLoggedInGuard, IsRoleMemberGuard],
     data: {
-      expectedRole: 'admin'
+      expectedRoles: ['admin']
     }
   },
   {
@@ -62,7 +63,15 @@ const routes: Routes = [
     component: PartComponent,
     canActivate: [IsLoggedInGuard, IsRoleMemberGuard],
     data: {
-      expectedRole: 'admin'
+      expectedRoles: ['admin']
+    }
+  },
+  {
+    path: 'sale/orders',
+    component: OrdersComponent,
+    canActivate: [IsLoggedInGuard, IsRoleMemberGuard],
+    data: {
+      expectedRoles: ['admin', 'empl']
     }
   },
   {

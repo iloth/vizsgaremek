@@ -95,7 +95,7 @@
           <label class="form-check-label" for="role_user">User</label>
         </div>
         <div></div>
-        <div *ngIf="controlIsInvalid('roles')" class="alert alert-danger">
+        <div *ngIf="controlIsInvalidStrict('roles')" class="alert alert-danger">
           <div *ngIf="control('roles').errors?.['required']">At least one role membership is required.</div>
         </div>
       </div>

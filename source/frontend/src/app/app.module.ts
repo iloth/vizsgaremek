@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from './pages/other/not-found/not-found.component';
 import { ErrorComponent } from './pages/other/error/error.component';
 import { NavigationComponent } from './controls/navigation/navigation.component';
-import { BreadcrumbsComponent } from './controls/breadcrumbs/breadcrumbs.component';
 import { PartsComponent } from './pages/admin/parts/parts.component';
 import { PartComponent } from './pages/admin/part/part.component';
 import { BurgerPartFilterComponent } from './controls/burger-part-filter/burger-part-filter.component';
@@ -21,6 +20,8 @@ import { ForbiddenComponent } from './pages/other/forbidden/forbidden.component'
 import { JwtInterceptor } from './services/auth/JwtInterceptor';
 import { AuthService } from './services/auth/AuthService';
 import { LoginComponent } from './pages/login/login.component';
+import { OrdersComponent } from './pages/sale/orders/orders.component';
+import { OrderComponent } from './pages/sale/order/order.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,6 @@ import { LoginComponent } from './pages/login/login.component';
     NotFoundComponent,
     ErrorComponent,
     NavigationComponent,
-    BreadcrumbsComponent,
     UsersComponent,
     UserComponent,
     PartsComponent,
@@ -38,6 +38,8 @@ import { LoginComponent } from './pages/login/login.component';
     BurgerPartFilterPipe,
     ForbiddenComponent,
     LoginComponent,
+    OrdersComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,

@@ -67,12 +67,13 @@ export class UserComponent extends BaseFormPage implements OnInit {
             
             this.editMode = EditModes.Edit;
 
-            this.mainForm.patchValue(userModel);
-
+            
             this.roles.admin = userModel.roles.find((r) => r == "admin") != undefined;
             this.roles.empl = userModel.roles.find((r) => r == "empl") != undefined;
             this.roles.user = userModel.roles.find((r) => r == "user") != undefined;
 
+            this.mainForm.patchValue(userModel);
+            
             this.mainForm.removeControl('password');
             this.mainForm.removeControl('password2');
           },
@@ -91,9 +92,11 @@ export class UserComponent extends BaseFormPage implements OnInit {
     if (this.roles.empl) roles.push("empl");
     if (this.roles.user) roles.push("user");
     
-    this.mainForm.patchValue({
-      roles: [...roles]
-    });
+    // this.mainForm.patchValue({
+    //   roles: [...roles]
+    // });
+
+    this.control('roles').setValue(roles);
   }
 
   onSubmit() {
@@ -104,15 +107,19 @@ export class UserComponent extends BaseFormPage implements OnInit {
         next: (result: UserModel) => {
           this.router.navigate(['/', 'admin', 'user', result._id]);
         },
-        error: this.showError
+        error: (err: Error) => {
+          this.showError(err);
+        }
       });
     } else {
       this.userService.update(user).subscribe({
         next: (result: UserModel) => {
-          const toast = new bootstrap.Toast(document.getElementById('userSavedToast') as Element);
-          toast.show();
+          const toast = bootstrap.Toast.getInstance('userSavedToast');
+          toast?.show();
         },
-        error: this.showError
+        error: (err: Error) => {
+          this.showError(err);
+        }
       });
     }
   }
@@ -124,8 +131,10 @@ export class UserComponent extends BaseFormPage implements OnInit {
       next: () => {
         this.router.navigate(['/', 'admin', 'users'])
       },
-      error: this.showError
-    });
+      error: (err: Error) => {
+        this.showError(err);
+      }
+  });
   }
 
   onResetPasswordSubmit() {
@@ -133,12 +142,14 @@ export class UserComponent extends BaseFormPage implements OnInit {
         
     this.userService.resetPassword(this.mainForm.get('_id')?.value, pwd.password).subscribe({
       next: () => {
-        const toast = new bootstrap.Toast(document.getElementById('resetPasswordToast') as Element);
-        toast.show();
         const modal = new bootstrap.Modal(document.getElementById('resetPasswordModal') as Element);
-        modal.toggle();
+        modal?.hide(); //FIXME: modal.hide()
+        const toast = new bootstrap.Toast(document.getElementById('resetPasswordToast') as Element);
+        toast?.show();
       },
-      error: this.showError
-    });
+      error: (err: Error) => {
+        this.showError(err);
+      }
+  });
   }
 }

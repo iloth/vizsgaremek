@@ -15,12 +15,18 @@ export class IsRoleMemberGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     const user: UserModel | null = this.auth.currentUser$.getValue();
-    if (!user || (route.data && route.data['expectedRole'] && !(user.roles?.includes(route.data['expectedRole']) ?? false))) {
-      this.router.navigate(['/', 'forbidden'], { skipLocationChange: true });
-      return false;
+    const roles: string[] = user?.roles ?? [];
+    const expectedRoles: string[] = route.data['expectedRoles'] ?? [];
+    
+    if (roles.length > 0 && expectedRoles.length > 0 ) {
+      if (roles.some((role) => expectedRoles.includes(role))) {
+        return true;
+      }
     }
 
-    return true;
+    this.router.navigate(['/', 'forbidden'], { skipLocationChange: true });
+    return false;
+
   }
 
 }

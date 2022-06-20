@@ -27,11 +27,9 @@ class AuthMiddleware {
   isMemberOf(roles: string | string[]): (req: Request, res: Response, next: NextFunction) => Promise<void> {
     return async (req: Request, res: Response, next: NextFunction) => {
       const accessToken = this.getAccessToken(req);
-      console.log('accessToken:', accessToken);
+
       if (accessToken) {
         const user = await authService.checkAccessToken(accessToken);
-        console.log('user:', user);
-        console.log('roles:', roles);
         
         if (user) {
           if (Array.isArray(roles)) {
@@ -44,12 +42,10 @@ class AuthMiddleware {
             if (found) {
               return next();
             }
-            console.log('Array, not-found');
           } else {
             if (user.roles.includes(roles)) {
               return next();
             }
-            console.log('NonArray, not-found');
           }
         }
       }
