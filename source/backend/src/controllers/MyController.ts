@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import HttpException from "../utils/HttpException";
 import { BaseController } from "./BaseController";
 import userService from "../services/UserService";
-import orderService from "../services/orderService";
+import orderService from "../services/OrderService";
 import favouriteService from "../services/FavouriteService";
 
 class MyController extends BaseController {

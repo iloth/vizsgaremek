@@ -1,6 +1,6 @@
 import { IOrderItem } from "../models/orderItemModel";
 import { BaseApiController } from "./BaseApiController";
-import orderItemService from '../services/orderItemService';
+import orderItemService from '../services/OrderItemService';
 import { Request, Response, NextFunction } from "express";
 import HttpException from "../utils/HttpException";
 
