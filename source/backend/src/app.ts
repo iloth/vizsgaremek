@@ -27,7 +27,7 @@ app.use(express.json());
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(require('./swagger/swagger.json')));
 app.use('/api/auth', authRouter.router);
 app.use('/api/my', authMiddleware.isLoggedIn, myRouter.router);
-app.use('/api/admin', authMiddleware.isMemberOf('admin'), adminRouter.router);
+app.use('/api/admin', authMiddleware.isMemberOf(['admin', 'empl']), adminRouter.router);
 app.use('/api/favourites', authMiddleware.isMemberOf(['admin', 'empl']), favouriteRouter.router);
 app.use('/api/orders', authMiddleware.isMemberOf(['admin', 'empl']), orderRouter.router);
 app.use('/api/orderitems', authMiddleware.isMemberOf(['admin', 'empl']), orderItemRouter.router);
