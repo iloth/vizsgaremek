@@ -1,3 +1,5 @@
+import { Request, Response, NextFunction } from "express";
+import { createLogger } from "winston";
 import { IUser, userModel } from "../../models/userModel";
 import UserService from "../../services/UserService";
 import HttpException from "../../utils/HttpException";
@@ -33,10 +35,24 @@ const mockData = [
   }
 ];
 
+const newUser = {
+  name: "Charlie Firpo",
+  email: "CharlieFirpo@pariedispari.com",
+  password:"Bud Spencer",
+  address: {zip: 1234, city: "Miami", address: "Green Frog street 1"},
+  active: true,
+  roles: ["user"]
+};
+
 jest.mock('../../services/UserService', () => ({
   get: jest.fn<Promise<IUser>, [string]>(async (id: string) => mockData.find(data => data._id == id) as any),
   getAll: jest.fn<Promise<IUser[]>, []>(async () => mockData as any[]),
-  create: jest.fn(),
+  create: jest.fn<Promise<IUser>, [any]>(async (user: any) => {
+    user.id = "123456789123456789";
+    user.password = "";
+    console.log(user);
+    return user;
+  }),
   update: jest.fn(),
   delete: jest.fn(),
   checkPassword: jest.fn(), 
@@ -45,16 +61,22 @@ jest.mock('../../services/UserService', () => ({
 
 describe('UserController', ()=> {
 
-  const res = {
-    end: jest.fn(),
-    json: jest.fn(),
-    status: jest.fn()
-  } as any;
-  const next = jest.fn();
+  let res: Response = {} as any;
+  let next: NextFunction = jest.fn() as any;
 
   beforeEach( () => {
+    res =  {
+      end: jest.fn(),
+      json: jest.fn(),
+      status: jest.fn()
+    } as any;
+    next = jest.fn() as any;
   });
   
+  afterEach( () => {
+    jest.clearAllMocks();
+  });
+
   const userController = UserController;
 
   test('getAll(): Should get all 3 users', async ()=> {
@@ -80,16 +102,19 @@ describe('UserController', ()=> {
     expect(next).not.toBeCalled();
   });
 
-  // test('get(): Should get error (no id present)', async ()=> {
-  //   const req = {
-  //     params: { id: null }      
-  //   } as any;
+  test('create(): Should get the new user', async ()=> {
+    const req = {
+      body: { ...newUser }
+    } as any;
 
-  //   await userController.get(req, res, next);
+    let exceptedUser = { ...newUser, id: "123456789123456789", password: "" };
 
-  //   expect(UserService.get).not.toBeCalled();
-  //   expect(res.json).not.toBeCalled();
-  //   expect(next).toBeCalledWith(new HttpException(500, 'Couldn get entity'));
-  // });
+    await userController.create(req, res, next);
+
+    expect(UserService.create).toBeCalled();
+    expect(res.json).toBeCalledWith(exceptedUser);
+    expect(next).not.toBeCalled();
+  });
+
 });
 
