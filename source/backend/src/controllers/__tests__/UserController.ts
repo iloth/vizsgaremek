@@ -1,8 +1,7 @@
 import { IUser, userModel } from "../../models/userModel";
 import UserService from "../../services/UserService";
+import HttpException from "../../utils/HttpException";
 import UserController from "../UserController";
-import { Request, Response, NextFunction } from 'express';
-import { mockRequest, mockResponse } from 'jest-mock-req-res';
 
 const mockData = [
   {
@@ -35,8 +34,8 @@ const mockData = [
 ];
 
 jest.mock('../../services/UserService', () => ({
-  get: jest.fn<IUser, [string]>((id: string) => mockData.find(data => data._id == id) as any),
-  getAll: jest.fn<IUser[], []>(() => mockData as any[]),
+  get: jest.fn<Promise<IUser>, [string]>(async (id: string) => mockData.find(data => data._id == id) as any),
+  getAll: jest.fn<Promise<IUser[]>, []>(async () => mockData as any[]),
   create: jest.fn(),
   update: jest.fn(),
   delete: jest.fn(),
@@ -46,39 +45,51 @@ jest.mock('../../services/UserService', () => ({
 
 describe('UserController', ()=> {
 
-  let res = mockResponse();
-  let next = jest.fn();
+  const res = {
+    end: jest.fn(),
+    json: jest.fn(),
+    status: jest.fn()
+  } as any;
+  const next = jest.fn();
 
   beforeEach( () => {
-    res = mockResponse();
   });
   
   const userController = UserController;
 
-  test('Should get 3 users', ()=> {
-    let req = mockRequest();
+  test('getAll(): Should get all 3 users', async ()=> {
+    const req = {} as any;
 
-    userController.getAll(req, res, next);
+    await userController.getAll(req, res, next);
 
     expect(UserService.getAll).toBeCalled();
     expect(res.json).toBeCalled();
     expect(next).not.toBeCalled();
+  });
 
-  })
-
-  test('Should get the 1. user', ()=> {
+  test('get(): Should get the 1. user', async ()=> {
     const user = mockData[0];
-    let req = mockRequest({
-      id: user._id
-    });
+    const req = {
+      params: { id: user._id }
+    } as any;
 
-    userController.get(req, res, next);
+    await userController.get(req, res, next);
 
     expect(UserService.get).toBeCalled();
     expect(res.json).toBeCalledWith(user);
     expect(next).not.toBeCalled();
-  })
+  });
 
+  // test('get(): Should get error (no id present)', async ()=> {
+  //   const req = {
+  //     params: { id: null }      
+  //   } as any;
 
+  //   await userController.get(req, res, next);
+
+  //   expect(UserService.get).not.toBeCalled();
+  //   expect(res.json).not.toBeCalled();
+  //   expect(next).toBeCalledWith(new HttpException(500, 'Couldn get entity'));
+  // });
 });
 

@@ -1,0 +1,27 @@
+{
+  "port": 8080,
+  "database": {
+    "connection": "mongodb+srv://dbUser:UZPeyKbFR2rcjuUR@vizsgaremekdatabase.vef4v.mongodb.net/db?retryWrites=true&w=majority"
+  },
+  "log": {
+    "winston": {
+      "file": {
+        "level": "debug",
+        "filename": "logs/app.log",
+        "format": "json"
+      },
+      "console": {
+        "level": "info",
+        "format": "simple"
+      }
+    },
+    "morgan": {
+      "format": "combined"
+    }
+  },
+  "auth": {
+    "accessTokenKey": "Cras molestie turpis ac felis dictum, quis tempor velit luctus.",
+    "refreshTokenKey": "Sed in lacus elementum, pellentesque ligula a, facilisis nisl. Proin.",
+    "tokenExpire": "24h"
+  }
+}
