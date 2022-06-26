@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { UserModel } from 'src/app/models/admin/UserModel';
 import { AuthService } from 'src/app/services/auth/AuthService';
@@ -13,6 +13,7 @@ export class NavigationComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    public activatedRoute: ActivatedRoute,
     private router: Router,
   ) { }
 

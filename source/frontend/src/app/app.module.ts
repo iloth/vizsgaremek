@@ -27,6 +27,8 @@ import { MyOrdersComponent } from './pages/my/orders/orders.component';
 import { BurgerPartsComponent } from './controls/burger-parts/burger-parts.component';
 import { OrderItemsComponent } from './pages/sale/order-items/order-items.component';
 import { OrderItemComponent } from './pages/sale/order-item/order-item.component';
+import { DashboardComponent } from './pages/home/dashboard/dashboard.component';
+import { MainComponent } from './pages/home/main/main.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { OrderItemComponent } from './pages/sale/order-item/order-item.component
     BurgerPartsComponent,
     OrderItemsComponent,
     OrderItemComponent,
+    DashboardComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,7 @@ import { OrderItemComponent } from './pages/sale/order-item/order-item.component
     FormsModule,
     ReactiveFormsModule,
     DataComponentsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [
     {

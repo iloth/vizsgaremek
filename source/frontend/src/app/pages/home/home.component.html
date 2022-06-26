@@ -1,1 +1,2 @@
-<p>home works!</p>
+<app-dashboard *ngIf="isMemberOf('admin') || isMemberOf('empl')"></app-dashboard>
+<app-main *ngIf="!isMemberOf('admin') && !isMemberOf('empl')"></app-main>

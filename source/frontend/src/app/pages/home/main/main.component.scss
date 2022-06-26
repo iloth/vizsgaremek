@@ -1,0 +1,24 @@
+.article__about {
+  color: white;
+
+  background-image: url('/assets/img/pexels-mateusz-dach-1275691.jpg');
+  background-repeat: no;
+  background-size: cover;
+
+  > .article-body {
+    background-color: rgba(1, 1, 1, .6);
+  }
+}
+
+.article__contact {
+  color: white;
+
+  background-image: url('/assets/img/pexels-lawrence-suzara-1581554.jpg');
+  background-repeat: no;
+  background-size: cover;
+  background-position: center;
+
+  > .article-body {
+    background-color: rgba(1, 1, 1, .6);
+  }
+}

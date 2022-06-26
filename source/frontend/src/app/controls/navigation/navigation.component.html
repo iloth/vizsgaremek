@@ -1,52 +1,57 @@
-<div class="container-fluid">
-  <div class="d-flex">
-  <nav class="navbar navbar-expand-md navbar-light mb-3">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand ms-5 ms-md-1" href="#">Customburger</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" [routerLink]="['/']">Home</a>
-        </li>
-        <li *ngIf="isMemberOf('admin') || isMemberOf('empl')" class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="saleDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Sale
+  <div class="d-flex fixed-top bg-light">
+    <nav class="navbar navbar-expand-md navbar-light mb-3">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand ms-5 ms-md-1" href="#">Customburger</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="homeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" routerLinkActive="active">
+              Home
+             </a>
+            <ul class="dropdown-menu" aria-labelledby="homeDropdown">
+              <li><a class="dropdown-item" [routerLink]="['/']" fragment="about">Bemutatkozás</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/']" fragment="burgers">Ajánlatunk</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/']" fragment="contact">Elérhetőségünk</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/']" fragment="order">Rendelés</a></li>
+            </ul>
+          </li>
+          <li *ngIf="isMemberOf('admin') || isMemberOf('empl')" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="saleDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" routerLinkActive="active">
+              Sale
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="saleDropdown">
+              <li><a class="dropdown-item" [routerLink]="['/', 'sale', 'orders']" routerLinkActive="active">Orders</a></li>
+            </ul>
+          </li>
+          <li *ngIf="isMemberOf('admin')" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" routerLinkActive="active">
+              Administration
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+              <li><a class="dropdown-item" [routerLink]="['/', 'admin', 'users']" routerLinkActive="active">Users</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/', 'admin', 'parts']" routerLinkActive="active">Burger parts</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <nav class="ms-auto align-self-start navbar navbar-expand navbar-light mb-3">
+      <ul class="navbar-nav mb-2">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" routerLinkActive="active">
+            <i class="fa fa-user"></i>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="saleDropdown">
-            <li><a class="dropdown-item" [routerLink]="['/', 'sale', 'orders']">Orders</a></li>
-          </ul>
-        </li>
-        <li *ngIf="isMemberOf('admin')" class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Administration
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="adminDropdown">
-            <li><a class="dropdown-item" [routerLink]="['/', 'admin', 'users']">Users</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/', 'admin', 'parts']">Burger parts</a></li>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li *ngIf="isLoggedIn()"><a class="dropdown-item" [routerLink]="['/', 'my', 'profile']" routerLinkActive="active">My Profile</a></li>
+            <li *ngIf="isLoggedIn()"><a class="dropdown-item" [routerLink]="['/', 'my', 'orders']" routerLinkActive="active">My Orders</a></li>
+            <li *ngIf="isLoggedIn()"><a class="dropdown-item disabled" title="NOT IMPLEMENTED YET" routerLinkActive="active">My Favourites</a></li>
+            <li *ngIf="isLoggedIn()"><hr class="dropdown-divider"></li>
+            <li *ngIf="isLoggedIn()"><a class="dropdown-item" (click)="onLogoutClick()">Logout</a></li>
+            <li *ngIf="!isLoggedIn()"><a class="dropdown-item" (click)="onLoginClick()">Login</a></li>
           </ul>
         </li>
       </ul>
-    </div>
-  </nav>
-  <nav class="ms-auto align-self-start navbar navbar-expand navbar-light mb-3">
-    <ul class="navbar-nav mb-2">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="fa fa-user"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-          <li *ngIf="isLoggedIn()"><a class="dropdown-item" [routerLink]="['/', 'my', 'profile']">My Profile</a></li>
-          <li *ngIf="isLoggedIn()"><a class="dropdown-item" [routerLink]="['/', 'my', 'orders']">My Orders</a></li>
-          <li *ngIf="isLoggedIn()"><a class="dropdown-item disabled" title="NOT IMPLEMENTED YET">My Favourites</a></li>
-          <li *ngIf="isLoggedIn()"><hr class="dropdown-divider"></li>
-          <li *ngIf="isLoggedIn()"><a class="dropdown-item" (click)="onLogoutClick()">Logout</a></li>
-          <li *ngIf="!isLoggedIn()"><a class="dropdown-item" (click)="onLoginClick()">Login</a></li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
+    </nav>
   </div>
-
-</div>

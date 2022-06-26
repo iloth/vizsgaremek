@@ -59,4 +59,18 @@ export class AuthService {
     this.currentUser$.next(null);
 
   }
+
+  isLoggedIn(): boolean {
+    return this.currentUser$.getValue() != null;
+  }
+
+  isMemberOf(role: string): boolean {
+    const user = this.currentUser$.getValue();
+    if (user) {
+      return user.roles.includes(role);
+    } else {
+      return false;
+    }
+  }
+  
 }
