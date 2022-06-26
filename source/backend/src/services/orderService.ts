@@ -3,11 +3,11 @@ import { BaseApiService } from "./BaseApiService";
 
 class OrderService extends BaseApiService<IOrder> {
   constructor() {
-    super(orderModel);
+    super(orderModel, ['userId']);
   }
 
   async getByUserId(id: string): Promise<IOrder[]> {
-    return await orderModel.find({ userId: id});
+    return await orderModel.find({ userId: id}).populate('userId');
   }
 }
 

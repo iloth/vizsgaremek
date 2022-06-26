@@ -8,9 +8,10 @@ export abstract class BaseService<Model extends BaseModel> {
     private httpClient: HttpClient,
     protected readonly entityUrl: string
   ) { 
-    this.url = environment.apiUrl + entityUrl;
+    this.url = this.apiUrl + entityUrl;
   }
 
+  protected readonly apiUrl: string = environment.apiUrl;
   protected readonly url: string = '';
 
   getAll(): Observable<Model[]> {

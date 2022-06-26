@@ -22,6 +22,11 @@ import { AuthService } from './services/auth/AuthService';
 import { LoginComponent } from './pages/login/login.component';
 import { OrdersComponent } from './pages/sale/orders/orders.component';
 import { OrderComponent } from './pages/sale/order/order.component';
+import { MyProfileComponent } from './pages/my/profile/profile.component';
+import { MyOrdersComponent } from './pages/my/orders/orders.component';
+import { BurgerPartsComponent } from './controls/burger-parts/burger-parts.component';
+import { OrderItemsComponent } from './pages/sale/order-items/order-items.component';
+import { OrderItemComponent } from './pages/sale/order-item/order-item.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +45,11 @@ import { OrderComponent } from './pages/sale/order/order.component';
     LoginComponent,
     OrdersComponent,
     OrderComponent,
+    MyProfileComponent,
+    MyOrdersComponent,
+    BurgerPartsComponent,
+    OrderItemsComponent,
+    OrderItemComponent,
   ],
   imports: [
     BrowserModule,

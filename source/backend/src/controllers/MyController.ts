@@ -4,6 +4,7 @@ import { BaseController } from "./BaseController";
 import userService from "../services/UserService";
 import orderService from "../services/OrderService";
 import favouriteService from "../services/FavouriteService";
+import { IUser } from "../models/userModel";
 
 class MyController extends BaseController {
   constructor() { 
@@ -24,6 +25,35 @@ class MyController extends BaseController {
     }
   }
 
+  async updateProfile(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const user = await this.getCurrentUser(req);
+      if (user) {
+        const entity = req.body as IUser;
+        const dbEntity = await userService.update(user.id, entity);
+        res.json(dbEntity);
+      } else {
+        next(new HttpException(403, 'Couldn\'t get current user'));
+      }
+    } catch (error) {
+      next(new HttpException(500, 'Couldn\'t update profile', error));
+    }
+  }
+
+  async resetPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const user = await this.getCurrentUser(req);
+      if (user) {
+        const { password } = req.body;        
+        await userService.resetPassword(user._id, password);
+        res.end();
+      } else {
+        next(new HttpException(403, 'Couldn\'t get current user'));
+      }
+    } catch (error) {
+      next(new HttpException(500, 'Couldn\'t update password', error));
+    }
+  }
   async orders(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const user = await this.getCurrentUser(req);

@@ -59,8 +59,8 @@ export class UserComponent extends BaseFormPage implements OnInit {
         this.editMode = EditModes.Create;
         this.roles.user = true;
       } else {
-        this.userService.get(params['id']).subscribe(
-          (userModel: UserModel) => {
+        this.userService.get(params['id']).subscribe({
+          next: (userModel: UserModel) => {
             if (!userModel) {
               this.router.navigate(['/', '404'], {skipLocationChange: true});
             }
@@ -77,9 +77,10 @@ export class UserComponent extends BaseFormPage implements OnInit {
             this.mainForm.removeControl('password');
             this.mainForm.removeControl('password2');
           },
-          (error: HttpErrorResponse) => {
+          error: (error: HttpErrorResponse) => {
             this.router.navigate(['/', 'error'], { skipLocationChange: true, queryParams: { error: JSON.stringify(error) } });            
-          });
+          }
+        });
       }
     });
 
@@ -134,7 +135,7 @@ export class UserComponent extends BaseFormPage implements OnInit {
       error: (err: Error) => {
         this.showError(err);
       }
-  });
+    });
   }
 
   onResetPasswordSubmit() {
@@ -150,6 +151,6 @@ export class UserComponent extends BaseFormPage implements OnInit {
       error: (err: Error) => {
         this.showError(err);
       }
-  });
+    });
   }
 }

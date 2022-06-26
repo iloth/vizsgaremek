@@ -1,0 +1,150 @@
+<h1>My profile</h1>
+
+<form [formGroup]="mainForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="mb-3">
+        <label class="form-label" for="name">Name:</label>
+        <input class="form-control" id="name" type="text" 
+          formControlName="name" [class.is-invalid]="controlIsInvalid('name')" >
+        <div *ngIf="controlIsInvalid('name')" class="alert alert-danger">
+          <div *ngIf="control('name').errors?.['required']">Name is required.</div>
+          <div *ngIf="control('name').errors?.['minlength']">Name must be at least 5 characters long.</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="email">Email:</label>
+        <input class="form-control" id="email" type="text" 
+          formControlName="email" [class.is-invalid]="controlIsInvalid('email')">
+        <div *ngIf="controlIsInvalid('email')" class="alert alert-danger">
+          <div *ngIf="control('email').errors?.['required']">Email is required.</div>
+        </div>
+      </div>
+
+      <div *ngIf="editMode == EditModes.Create" class="mb-3">
+        <label class="form-label" for="password">Password:</label>
+        <input class="form-control" id="password" type="password" 
+          formControlName="password" [class.is-invalid]="controlIsInvalid('password')">
+        <div *ngIf="controlIsInvalid('password')" class="alert alert-danger">
+          <div *ngIf="control('password').errors?.['required']">Password is required.</div>
+          <div *ngIf="control('password').errors?.['minlength']">Password must be at least 8 characters long.</div>
+        </div>
+      </div>
+
+      <div *ngIf="editMode == EditModes.Create" class="mb-3">
+        <label class="form-label" for="password2">Confirm password:</label>
+        <input class="form-control" id="password2" type="password" 
+          formControlName="password2" [class.is-invalid]="controlIsInvalid('password2')">
+        <div *ngIf="controlIsInvalid('password2')" class="alert alert-danger">
+          <div *ngIf="control('password2').errors?.['mustMatch']">Password and Confirm password do not match.</div>
+        </div>
+      </div>
+
+      <div class="mb-3" formGroupName="address">
+        <label class="form-label">Address:</label>
+        <div class="ms-3">
+          <div class="row mb-3">
+            <div class="col-md-5">
+              <label class="form-label" for="zip">Zip Code:</label>
+              <input class="form-control" id="zip" type="text" 
+                formControlName="zip" [class.is-invalid]="controlIsInvalid('address.zip')">
+              <div *ngIf="controlIsInvalid('address.zip')" class="alert alert-danger">
+                <div *ngIf="control('address.zip').errors?.['required']">Zip is required.</div>
+                <div *ngIf="control('address.zip').errors?.['minlength']">Zip must be at least 3 characters long.</div>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <label class="form-label" for="city">City:</label>
+              <input class="form-control" id="city" type="text" 
+                formControlName="city" [class.is-invalid]="controlIsInvalid('address.city')">
+              <div *ngIf="controlIsInvalid('address.city')" class="alert alert-danger">
+                <div *ngIf="control('address.city').errors?.['required']">City is required.</div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <label class="form-label" for="address">Address:</label>
+              <input class="form-control" id="address" type="text" 
+                formControlName="address" [class.is-invalid]="controlIsInvalid('address.address')">
+              <div *ngIf="controlIsInvalid('address.address')" class="alert alert-danger">
+                <div *ngIf="control('address.address').errors?.['required']">City is required.</div>
+              </div>  
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-2">
+      <div class="d-grid gap-3">
+        <button class="btn btn-primary" type="submit" [disabled]="mainForm.status != 'VALID'"><i class="fa fa-save"></i> Save </button>
+        <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#resetPasswordModal"><i class="fa fa-key"></i> Reset password</button>
+      </div>
+    </div>    
+  </div>
+</form>
+
+<div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="resetPasswordForm" (ngSubmit)="onResetPasswordSubmit()">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label" for="resetPassword">Password:</label>
+            <input class="form-control" id="resetPassword" type="password" 
+              formControlName="password" [class.is-invalid]="controlIsInvalid('password', resetPasswordForm)">
+            <div *ngIf="controlIsInvalid('password', resetPasswordForm)" class="alert alert-danger">
+              <div *ngIf="control('password', resetPasswordForm).errors?.['required']">Password is required.</div>
+              <div *ngIf="control('password', resetPasswordForm).errors?.['minlength']">Password must be at least 8 characters long.</div>
+            </div>
+          </div>
+    
+          <div class="mb-3">
+            <label class="form-label" for="resetPassword2">Confirm password:</label>
+            <input class="form-control" id="resetPassword2" type="password" 
+              formControlName="password2" [class.is-invalid]="controlIsInvalid('password2', resetPasswordForm)">
+            <div *ngIf="controlIsInvalid('password2', resetPasswordForm)" class="alert alert-danger">
+              <div *ngIf="control('password2', resetPasswordForm).errors?.['mustMatch']">Password and Confirm password do not match.</div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" [disabled]="resetPasswordForm.status != 'VALID'">Reset Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="userSavedToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <i class="fa fa-save me-2 text-primary"></i>
+      <strong class="me-auto text-primary">Info</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Profile has been saved.
+    </div>
+  </div>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="resetPasswordToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <i class="fa fa-save me-2 text-primary"></i>
+      <strong class="me-auto text-primary">Info</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Password has been resetted.
+    </div>
+  </div>
+</div>

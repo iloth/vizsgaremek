@@ -13,7 +13,7 @@ class OrderItemRouter extends BaseApiRouter<IOrderItem> {
 
     super(orderItemController, security);
     
-    this.router.post('/order/:id', (req: Request, res: Response, next: NextFunction) => { orderItemController.getByOrderId(req, res, next); } )
+    this.router.get('/order/:id', (req: Request, res: Response, next: NextFunction) => { orderItemController.getByOrderId(req, res, next); } )
   }
 }
 

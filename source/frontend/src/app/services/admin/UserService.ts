@@ -16,4 +16,20 @@ export class UserService extends BaseService<UserModel> {
     const url = `${this.url}/${id}/resetpassword`
     return this.http.post<null>(url, { password: password });
   }
+
+  getMyProfile(): Observable<UserModel> {
+    const url = `${this.apiUrl}/my/profile`
+    return this.http.get<UserModel>(url);
+  }
+
+  updateMyProfile(model: UserModel): Observable<UserModel> {
+    const url = `${this.apiUrl}/my/profile`
+    return this.http.put<UserModel>(url, model);
+  }
+
+  resetMyPassword(password: string): Observable<null> {
+    const url = `${this.apiUrl}/my/resetpassword`
+    return this.http.post<null>(url, { password: password });
+  }
+
 }

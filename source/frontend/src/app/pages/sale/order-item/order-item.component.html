@@ -1,0 +1,20 @@
+<h1>Order Item Details</h1>
+
+<div class="row">
+  <div class="col col-md-10">
+
+    <div class="mb-3">
+      <label class="form-label" for="amount">Amount:</label>
+      <input type="text" readonly class="form-control-plaintext" id="amount" [value]="(item$ | async)?.amount">
+    </div>
+    <div class="mb-3">
+      <label class="form-label" for="notes">Notes:</label>
+      <textarea readonly class="form-control-plaintext" id="notes" [value]="(item$ | async)?.notes"></textarea>
+    </div>
+    <label class="form-label">Parts:</label>
+    <app-burger-parts [items]="(item$ | async)?.burgerParts ?? null"></app-burger-parts>
+  </div>
+  <div class="col col-md-2">
+    <button class="btn btn-secondary" [routerLink]="['/', 'sale', 'order', (item$ | async)?.orderId]"><i class="fa fa-chevron-left"></i> Back to the order</button>
+  </div>
+</div>

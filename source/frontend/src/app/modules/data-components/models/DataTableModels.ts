@@ -3,12 +3,14 @@ export interface IDataColumn {
   title: string,
   sortable: boolean,
   filterable: boolean,
-  format?: Function,
+  format?: (value: any) => string,
+  link?: (value: any) => { url: string, text: string, title?: string }
   display?: Displays,
 }
 
 export enum Displays {
   Email,
   Phone,
-  Checkbox
+  Checkbox,
+  Link
 }

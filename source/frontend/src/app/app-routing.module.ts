@@ -12,6 +12,11 @@ import { IsLoggedInGuard } from './services/auth/IsLoggedInGuard';
 import { IsRoleMemberGuard } from './services/auth/IsRoleMemberGuard';
 import { LoginComponent } from './pages/login/login.component';
 import { OrdersComponent } from './pages/sale/orders/orders.component';
+import { MyProfileComponent } from './pages/my/profile/profile.component';
+import { MyOrdersComponent } from './pages/my/orders/orders.component';
+import { OrderComponent } from './pages/sale/order/order.component';
+import { OrderItemComponent } from './pages/sale/order-item/order-item.component';
+import { OrderItemsComponent } from './pages/sale/order-items/order-items.component';
 
 const routes: Routes = [
   {
@@ -74,6 +79,32 @@ const routes: Routes = [
       expectedRoles: ['admin', 'empl']
     }
   },
+  {
+    path: 'sale/order/:id',
+    component: OrderComponent,
+    canActivate: [IsLoggedInGuard, IsRoleMemberGuard],
+    data: {
+      expectedRoles: ['admin', 'empl']
+    }
+  },
+  {
+    path: 'sale/orderitem/:id',
+    component: OrderItemComponent,
+    canActivate: [IsLoggedInGuard, IsRoleMemberGuard],
+    data: {
+      expectedRoles: ['admin', 'empl']
+    }
+  },
+  {
+    path: 'my/profile',
+    component: MyProfileComponent,
+    canActivate: [IsLoggedInGuard],
+  },  
+  {
+    path: 'my/orders',
+    component: MyOrdersComponent,
+    canActivate: [IsLoggedInGuard],
+  },  
   {
     path: '**',
     component: NotFoundComponent

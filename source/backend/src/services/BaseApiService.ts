@@ -2,15 +2,24 @@ import mongoose, { Document, UpdateQuery } from "mongoose";
 
 export abstract class BaseApiService<Model extends Document> {
   constructor(
-    private model: mongoose.Model<Model, {}, {}, {}> 
+    private model: mongoose.Model<Model, {}, {}, {}>,
+    private populates?: string[] 
   ) { }
 
   async getAll(): Promise<Model[]> {
-    return await this.model.find();
+    if (this.populates) {
+      return await this.model.find().populate(this.populates);
+    } else {
+      return await this.model.find();
+    }
   }
 
   async get(id: string): Promise<Model | null> {
-    return await this.model.findById(new mongoose.Types.ObjectId(id));
+    if (this.populates) {
+      return await this.model.findById(new mongoose.Types.ObjectId(id)).populate(this.populates) as Model;
+    } else {
+      return await this.model.findById(new mongoose.Types.ObjectId(id));
+    }
   }
 
   async create(entity: Model): Promise<Model> {

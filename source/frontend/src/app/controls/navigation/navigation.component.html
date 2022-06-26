@@ -37,8 +37,9 @@
           <i class="fa fa-user"></i>
         </a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-          <li *ngIf="isLoggedIn()"><a class="dropdown-item disabled" title="Not implemented YET">My Orders</a></li>
-          <li *ngIf="isLoggedIn()"><a class="dropdown-item disabled" title="Not implemented YET">My Favourites</a></li>
+          <li *ngIf="isLoggedIn()"><a class="dropdown-item" [routerLink]="['/', 'my', 'profile']">My Profile</a></li>
+          <li *ngIf="isLoggedIn()"><a class="dropdown-item" [routerLink]="['/', 'my', 'orders']">My Orders</a></li>
+          <li *ngIf="isLoggedIn()"><a class="dropdown-item disabled" title="NOT IMPLEMENTED YET">My Favourites</a></li>
           <li *ngIf="isLoggedIn()"><hr class="dropdown-divider"></li>
           <li *ngIf="isLoggedIn()"><a class="dropdown-item" (click)="onLogoutClick()">Logout</a></li>
           <li *ngIf="!isLoggedIn()"><a class="dropdown-item" (click)="onLoginClick()">Login</a></li>

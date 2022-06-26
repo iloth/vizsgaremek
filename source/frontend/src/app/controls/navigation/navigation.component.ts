@@ -35,7 +35,6 @@ export class NavigationComponent implements OnInit {
 
   isLoggedIn(): boolean {
     const user = this.user$.getValue();
-    console.log(user);
     return user != null;
   }
 
