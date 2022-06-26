@@ -29,6 +29,7 @@ import { OrderItemsComponent } from './pages/sale/order-items/order-items.compon
 import { OrderItemComponent } from './pages/sale/order-item/order-item.component';
 import { DashboardComponent } from './pages/home/dashboard/dashboard.component';
 import { MainComponent } from './pages/home/main/main.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { MainComponent } from './pages/home/main/main.component';
     ReactiveFormsModule,
     DataComponentsModule,
     BrowserAnimationsModule,
+    NgChartsModule,
   ],
   providers: [
     {

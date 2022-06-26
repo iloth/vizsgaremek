@@ -22,7 +22,7 @@ const orderSchema = new Schema<IOrder>({
   status: {
     type: String,
     default: 'ordered',
-    enum: { values: ['ordered', 'inprogress', 'completed'], message: 'Not valid status: {VALUE}.'},
+    enum: { values: ['ordered', 'inprogress', 'completed', 'cancelled'], message: 'Not valid status: {VALUE}.'},
     required: [ true, 'Status is required']
   },
   amount: {

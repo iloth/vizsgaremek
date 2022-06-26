@@ -1,1 +1,68 @@
-<p>dashboard works!</p>
+<h1>Dashboard</h1>
+
+<div class="row">
+  <div class="card col-12 col-md-6">
+    <div class="card-header">
+      <h4 class="card-title">New Orders:</h4>
+    </div>
+    <div class="card-body">
+      <dc-data-table [items]="(newOrders$ | async)?.orders ?? null" [editButton]="false" [filterable]="false" [columns]="orderColumns" [pager]="false"></dc-data-table>
+    </div>
+    <div class="card-footer">
+      <a href="#" class="btn btn-small btn-secondary">More ... ({{ (newOrders$ | async)?.count }})</a>
+    </div>  
+  </div>
+  <div class="card col-12 col-md-6">
+    <div class="card-header">
+      <h4 class="card-title">In progress Orders:</h4>
+    </div>
+    <div class="card-body">
+      <dc-data-table [items]="(inprogressOrders$ | async)?.orders ?? null" [editButton]="false" [filterable]="false" [columns]="orderColumns" [pager]="false"></dc-data-table>
+    </div>
+    <div class="card-footer">
+      <a href="#" class="btn btn-small btn-secondary">More ... ({{ (inprogressOrders$ | async)?.count }})</a>
+    </div>    
+  </div>
+</div>
+
+<div class="row">
+  <div class="card col-12">
+    <div class="card-header">
+      <h4 class="card-title">Order statistics</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-2"><strong>Total:</strong> {{ (orderStat$ | async)?.total ?? '?' }} </div>
+        <div class="col-2"><strong>Ordered:</strong> {{ (orderStat$ | async)?.ordered ?? '?' }} </div>
+        <div class="col-2"><strong>In progress:</strong> {{ (orderStat$ | async)?.inprogress ?? '?' }} </div>
+        <div class="col-2"><strong>Cancelled:</strong> {{ (orderStat$ | async)?.cancelled ?? '?' }} </div>
+        <div class="col-2"><strong>This day:</strong> {{ (orderStat$ | async)?.inDay ?? '?' }} </div>
+        <div class="col-2"><strong>This week:</strong> {{ (orderStat$ | async)?.inWeek ?? '?' }} </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="card col-12">
+    <div class="card-header">
+      <h4 class="card-title">Order history</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <canvas baseChart
+              [data]="histChartDataW"
+              [type]="chartType">
+          </canvas>
+        </div>
+        <div class="col-12 col-md-6">
+          <canvas baseChart
+              [data]="histChartDataM"
+              [type]="chartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

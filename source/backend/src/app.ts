@@ -13,6 +13,7 @@ import authRouter from "./routes/AuthRouter";
 import favouriteRouter from "./routes/FavouriteRoute";
 import orderRouter from "./routes/OrderRouter";
 import orderItemRouter from "./routes/OrderItemRouter";
+import dashBoardRouter from "./routes/DashBoardRouter";
 
 const app = express();
 
@@ -32,7 +33,7 @@ app.use('/api/favourites', authMiddleware.isMemberOf(['admin', 'empl']), favouri
 app.use('/api/orders', authMiddleware.isMemberOf(['admin', 'empl']), orderRouter.router);
 //app.use('/api/orderitems', authMiddleware.isMemberOf(['admin', 'empl']), orderItemRouter.router);
 app.use('/api/orderitems', orderItemRouter.router);
-
+app.use('/api/dashboard', authMiddleware.isMemberOf(['admin', 'empl']), dashBoardRouter.router)
 //error handling
 app.use((err: HttpException, req: Request, res: Response, next: NextFunction) => {
   if (err) {

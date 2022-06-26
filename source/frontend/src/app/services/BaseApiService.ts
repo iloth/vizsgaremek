@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
-export abstract class BaseService<Model extends BaseModel> {
+export abstract class BaseApiService<Model extends BaseModel> {
   constructor(
     private httpClient: HttpClient,
     protected readonly entityUrl: string

@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderModel } from 'src/app/models/sale/OrderModel';
-import { BaseService } from '../BaseService';
+import { BaseApiService } from '../BaseApiService';
 @Injectable({
   providedIn: 'root'
 })
-export class OrderService extends BaseService<OrderModel> {
+export class OrderService extends BaseApiService<OrderModel> {
   constructor(
     private http: HttpClient
   ) {

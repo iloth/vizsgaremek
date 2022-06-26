@@ -2,12 +2,12 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { UserModel } from "src/app/models/admin/UserModel";
-import { BaseService } from "../BaseService";
+import { BaseApiService } from "../BaseApiService";
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService extends BaseService<UserModel> {
+export class UserService extends BaseApiService<UserModel> {
   constructor(private http: HttpClient) {
     super(http, 'admin/users')
   }
